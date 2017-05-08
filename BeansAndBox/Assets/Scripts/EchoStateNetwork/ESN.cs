@@ -220,21 +220,13 @@ namespace EchoState {
 		public double[] GetNormalizedOutput() {
 			double[] y = GetOutput();
 			for(int i = 0; i < y.Length; i++) {
-				if(y[i] < -1) {
-					y[i] = -1;
-				} else if(y[i] > 1) {
-					y[i] = 1;
-				}
-				if(y[i] > 0) {
-					if(y[i] < 0.5) {
-						y[i] = 0;
-					}
+				var x = Math.Min(Math.Max(y [i], -1), 1);
+				if (x < - 0.5) {
+					y[i] = 2 * (y[i] + 0.5);
+				} else if (x > 0.5) {
 					y[i] = 2 * (y[i] - 0.5);
 				} else {
-					if(y[i] > -0.5) {
-						y[i] = 0;
-					}
-					y[i] = 2 * (y[i] + 0.5);
+					y [i] = 0;
 				}
 			}
 			return y;

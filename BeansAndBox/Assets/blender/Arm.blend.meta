@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: e2be0f93b7674434b9d934bd3f3b2cec
+timeCreated: 1481045807
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: 2D-Construction
+    100002: 3D-Construction
+    100004: //RootNode
+    100006: free_space
+    100008: free_space_001
+    100010: hand
+    100012: HandConstruction
+    100014: inner_circle
+    100016: inner_circle_001
+    100018: outer_circle
+    100020: outer_circle_001
+    100022: Arm
+    100024: Armature
+    100026: Bone
+    100028: Bone_001
+    100030: hand_001
+    100032: hand_001_MeshPart0
+    100034: hand_001_MeshPart1
+    100036: hand_001_MeshPart10
+    100038: hand_001_MeshPart11
+    100040: hand_001_MeshPart12
+    100042: hand_001_MeshPart13
+    100044: hand_001_MeshPart14
+    100046: hand_001_MeshPart15
+    100048: hand_001_MeshPart2
+    100050: hand_001_MeshPart3
+    100052: hand_001_MeshPart4
+    100054: hand_001_MeshPart5
+    100056: hand_001_MeshPart6
+    100058: hand_001_MeshPart7
+    100060: hand_001_MeshPart8
+    100062: hand_001_MeshPart9
+    100064: Bone_003
+    100066: Bone_004
+    100068: Bone_005
+    100070: Bone_006
+    100072: Bone_008
+    100074: Bone_009
+    100076: Bone_011
+    100078: Bone_012
+    100080: Bone_013
+    100082: Bone_014
+    100084: Bone_015
+    100086: Bone_016
+    100088: Handle
+    100090: NewHand_001
+    100092: Hand
+    100094: Arm_001
+    400000: 2D-Construction
+    400002: 3D-Construction
+    400004: //RootNode
+    400006: free_space
+    400008: free_space_001
+    400010: hand
+    400012: HandConstruction
+    400014: inner_circle
+    400016: inner_circle_001
+    400018: outer_circle
+    400020: outer_circle_001
+    400022: Arm
+    400024: Armature
+    400026: Bone
+    400028: Bone_001
+    400030: hand_001
+    400032: hand_001_MeshPart0
+    400034: hand_001_MeshPart1
+    400036: hand_001_MeshPart10
+    400038: hand_001_MeshPart11
+    400040: hand_001_MeshPart12
+    400042: hand_001_MeshPart13
+    400044: hand_001_MeshPart14
+    400046: hand_001_MeshPart15
+    400048: hand_001_MeshPart2
+    400050: hand_001_MeshPart3
+    400052: hand_001_MeshPart4
+    400054: hand_001_MeshPart5
+    400056: hand_001_MeshPart6
+    400058: hand_001_MeshPart7
+    400060: hand_001_MeshPart8
+    400062: hand_001_MeshPart9
+    400064: Bone_003
+    400066: Bone_004
+    400068: Bone_005
+    400070: Bone_006
+    400072: Bone_008
+    400074: Bone_009
+    400076: Bone_011
+    400078: Bone_012
+    400080: Bone_013
+    400082: Bone_014
+    400084: Bone_015
+    400086: Bone_016
+    400088: Handle
+    400090: NewHand_001
+    400092: Hand
+    400094: Arm_001
+    2300000: 2D-Construction
+    2300002: 3D-Construction
+    2300004: free_space
+    2300006: free_space_001
+    2300008: hand
+    2300010: HandConstruction
+    2300012: inner_circle
+    2300014: inner_circle_001
+    2300016: outer_circle
+    2300018: outer_circle_001
+    2300020: Arm
+    2300022: hand_001_MeshPart0
+    2300024: hand_001_MeshPart1
+    2300026: hand_001_MeshPart10
+    2300028: hand_001_MeshPart11
+    2300030: hand_001_MeshPart12
+    2300032: hand_001_MeshPart13
+    2300034: hand_001_MeshPart14
+    2300036: hand_001_MeshPart15
+    2300038: hand_001_MeshPart2
+    2300040: hand_001_MeshPart3
+    2300042: hand_001_MeshPart4
+    2300044: hand_001_MeshPart5
+    2300046: hand_001_MeshPart6
+    2300048: hand_001_MeshPart7
+    2300050: hand_001_MeshPart8
+    2300052: hand_001_MeshPart9
+    2300054: Handle
+    3300000: 2D-Construction
+    3300002: 3D-Construction
+    3300004: free_space
+    3300006: free_space_001
+    3300008: hand
+    3300010: HandConstruction
+    3300012: inner_circle
+    3300014: inner_circle_001
+    3300016: outer_circle
+    3300018: outer_circle_001
+    3300020: Arm
+    3300022: hand_001_MeshPart0
+    3300024: hand_001_MeshPart1
+    3300026: hand_001_MeshPart10
+    3300028: hand_001_MeshPart11
+    3300030: hand_001_MeshPart12
+    3300032: hand_001_MeshPart13
+    3300034: hand_001_MeshPart14
+    3300036: hand_001_MeshPart15
+    3300038: hand_001_MeshPart2
+    3300040: hand_001_MeshPart3
+    3300042: hand_001_MeshPart4
+    3300044: hand_001_MeshPart5
+    3300046: hand_001_MeshPart6
+    3300048: hand_001_MeshPart7
+    3300050: hand_001_MeshPart8
+    3300052: hand_001_MeshPart9
+    3300054: Handle
+    4300000: HandConstruction
+    4300002: 2D-Construction
+    4300004: inner_circle
+    4300006: free_space
+    4300008: outer_circle
+    4300010: 3D-Construction
+    4300012: free_space_001
+    4300014: inner_circle_001
+    4300016: outer_circle_001
+    4300018: hand
+    4300020: Arm
+    4300022: hand_001_MeshPart0
+    4300024: hand_001_MeshPart1
+    4300026: hand_001_MeshPart2
+    4300028: hand_001_MeshPart3
+    4300030: hand_001_MeshPart4
+    4300032: hand_001_MeshPart5
+    4300034: hand_001_MeshPart6
+    4300036: hand_001_MeshPart7
+    4300038: hand_001_MeshPart8
+    4300040: hand_001_MeshPart9
+    4300042: hand_001_MeshPart10
+    4300044: hand_001_MeshPart11
+    4300046: hand_001_MeshPart12
+    4300048: hand_001_MeshPart13
+    4300050: hand_001_MeshPart14
+    4300052: hand_001_MeshPart15
+    4300054: Handle
+    4300056: NewHand_001
+    4300058: Hand
+    4300060: Arm_001
+    7400000: Open
+    7400002: Open
+    7400004: Open
+    7400006: OpenHand
+    9500000: //RootNode
+    13700000: Arm
+    13700002: NewHand_001
+    13700004: Hand
+    13700006: Arm_001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: OpenHand
+      takeName: ArmatureAction
+      firstFrame: -1
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm
+        weight: 1
+      - path: Arm/Bone
+        weight: 1
+      - path: Arm/Bone/Bone_003
+        weight: 1
+      - path: Arm/Bone/Bone_003/Bone_013
+        weight: 1
+      - path: Arm/Bone/Bone_003/Bone_013/Bone_005
+        weight: 1
+      - path: Arm/Bone/Bone_003/Bone_013/Bone_005/Bone_012
+        weight: 1
+      - path: Arm/Bone/Bone_003/Bone_013/Bone_005/Bone_012/Bone_006
+        weight: 1
+      - path: Arm/Bone/Bone_003/Bone_013/Bone_005/Bone_012/Bone_006/Bone_011
+        weight: 1
+      - path: Arm/Bone/Bone_004
+        weight: 1
+      - path: Arm/Bone/Bone_004/Bone_016
+        weight: 1
+      - path: Arm/Bone/Bone_004/Bone_016/Bone_008
+        weight: 1
+      - path: Arm/Bone/Bone_004/Bone_016/Bone_008/Bone_015
+        weight: 1
+      - path: Arm/Bone/Bone_004/Bone_016/Bone_008/Bone_015/Bone_009
+        weight: 1
+      - path: Arm/Bone/Bone_004/Bone_016/Bone_008/Bone_015/Bone_009/Bone_014
+        weight: 1
+      - path: Arm_001
+        weight: 1
+      - path: Hand
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

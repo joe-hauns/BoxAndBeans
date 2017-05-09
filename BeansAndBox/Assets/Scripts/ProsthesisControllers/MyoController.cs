@@ -11,7 +11,7 @@ namespace ProsthesisControllers
 		[Range (0, 90)] public float maxAngleUp = 55f;
 		[Range (0, 90)] public float maxAngleDown = 5f;
 
-		private Vector3 calibrationAngles = Vector3.zero;
+		private Vector3 calibrationAngles;
 
 		void Awake() {
 			this.myo = FindObjectOfType<ThalmicMyo> ();
@@ -24,7 +24,7 @@ namespace ProsthesisControllers
 			_Update ();
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				Debug.Log ("calibrating");
-				calibrationAngles = myo.transform.localEulerAngles;
+				calibrationAngles = myo.transform.localEulerAngles + new Vector3(0.5f * (maxAngleUp + maxAngleDown) - maxAngleDown, 0,0);
 			}
 		}
 

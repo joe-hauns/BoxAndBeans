@@ -89,6 +89,7 @@
      <Compile Include="Assets\Scripts\UI\ScoreList.cs" />
      <Compile Include="Assets\Scripts\UI\ScoreListEntryUi.cs" />
      <Compile Include="Assets\Scripts\UI\ScoreUi.cs" />
+     <Compile Include="Assets\Scripts\UI\SettingsMenu.cs" />
      <Compile Include="Assets\Scripts\UI\TestRunUi.cs" />
      <Compile Include="Assets\Scripts\UI\TextStyles.cs" />
      <Compile Include="Assets\Scripts\lib\SimpleJson\SimpleJson.cs" />

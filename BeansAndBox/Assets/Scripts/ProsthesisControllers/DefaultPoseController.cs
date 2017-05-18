@@ -5,6 +5,11 @@ using Pose = Thalmic.Myo.Pose;
 namespace ProsthesisControllers {
 	public class DefaultPoseController : MyoController {
 
+		public override string controllerName { get { return "Thalmic Pose"; } }
+		public override string defaultConfigFile { get{ return ""; } }
+		public override bool needsConfiguration { get{ return false; } }
+		public override ConfigResult SetConfiguration (string configPath) { return ConfigResult.OK; }
+
 		protected override void _Update () { }
 		protected override void _Awake () { }
 

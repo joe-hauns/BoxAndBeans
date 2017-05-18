@@ -1,22 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using EchoState;
 using System.IO;
 
 public class EchoStateDao : ControllerLoader {
-	private string esnDir;
+	void fn() {
+		Dropdown d;
+		//d.RefreshShownValue ();
+	}
+/*
+	public string configDir{ get; private set; }
 
 	void Awake() {
-		esnDir = Path.Combine(Application.persistentDataPath, "EchoStateNetwork");
-		if (!Directory.Exists (esnDir)) {
-			Directory.CreateDirectory (esnDir);
+		configDir = Path.Combine(Application.persistentDataPath, "EchoStateNetwork");
+		if (!Directory.Exists (configDir)) {
+			Directory.CreateDirectory (configDir);
 		}
 	}
 
 	public override ProsthesisController Load() {
-		var resDir = Path.Combine (esnDir, "current_reservoir.json");
-		var outDir = Path.Combine (esnDir, "current_output_weights.json");
+		var resDir = Path.Combine (configDir, "current_reservoir.json");
+		var outDir = Path.Combine (configDir, "current_output_weights.json");
 
 		var ctrl = FindObjectOfType<ProsthesisControllers.EchoStateController> ();
 		if (!File.Exists (resDir) || !File.Exists (outDir)) {
@@ -28,4 +34,5 @@ public class EchoStateDao : ControllerLoader {
 			return ctrl;
 		}
 	}
+*/
 }

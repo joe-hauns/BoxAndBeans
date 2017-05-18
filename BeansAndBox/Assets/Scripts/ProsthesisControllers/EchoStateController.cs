@@ -6,9 +6,28 @@ using System.IO;
 namespace ProsthesisControllers {
 	public class EchoStateController : MyoController {
 
+		public override string controllerName { get { return "Echo State Network"; } }
+		public override string defaultConfigFile { get{ return Path.Combine(Application.persistentDataPath, "EchoStateNetwork"); } }
+		public override bool needsConfiguration { get{ return true; } }
+		public override ConfigResult SetConfiguration (string configPath) { 
+			var resDir = Path.Combine (configPath, "current_reservoir.json");
+			var outDir = Path.Combine (configPath, "current_output_weights.json");
+
+			if (!File.Exists (resDir) || !File.Exists (outDir)) {
+				return ConfigResult.error("Resource file missing: " + (!File.Exists (outDir) ? outDir : resDir));
+			} else {
+				try {
+					this.esn = EchoStateNetwork.FromJSON (resDir, outDir);
+					return ConfigResult.OK;
+				} catch (System.Exception e) {
+					return ConfigResult.error(e.Message);
+				}
+			}
+		}
+
 		private Buffer buffer = new Buffer();
 		private CombFilter filter = new CombFilter(200, 50);
-		public EchoStateNetwork esn{ set; private get;}
+		private EchoStateNetwork esn;
 
 
 		#if UNITY_EDITOR
@@ -20,6 +39,7 @@ namespace ProsthesisControllers {
 
 		protected override void _Awake() {
 			var dbg = GetComponentInChildren<EchoStateDebugUI>();
+			this.enabled = false;
 			#if UNITY_EDITOR
 			dbg.gameObject.SetActive(true);
 			this.debug = dbg;

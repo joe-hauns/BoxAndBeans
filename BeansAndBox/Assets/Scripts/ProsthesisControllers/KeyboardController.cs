@@ -4,6 +4,11 @@ using System.Collections;
 namespace ProsthesisControllers {
 	public class KeyboardController :  ProsthesisController {
 
+		public override string controllerName { get { return "Keyboard Controller"; } }
+		public override string defaultConfigFile { get{ return ""; } }
+		public override bool needsConfiguration { get{ return false; } }
+		public override ConfigResult SetConfiguration (string configPath) { return ConfigResult.OK; }
+
 		private Vector2 curPos;
 		public float velocity; // [ m / s ]
 

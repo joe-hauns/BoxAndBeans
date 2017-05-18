@@ -17,19 +17,14 @@ public class ProsthesisMovementController : MonoBehaviour {
 	private Rigidbody rigid;
 	private Animator animator;
 	private GameTime gameTime;
-	private ProsthesisController controller;
+	public ProsthesisController controller;
 
 	void Awake () {
 		this.rigid = GetComponent<Rigidbody> ();
 		this.animator = GetComponent<Animator> ();
 		this.gameTime = FindObjectOfType<GameTime> ();
 
-		var ctrl = loader.Load ();
-		if (ctrl != null) {
-			this.controller = ctrl;
-		} else {
-			this.controller = defaultController;
-		}
+		this.controller = defaultController;
 	}
 
 	// Use this for initialization

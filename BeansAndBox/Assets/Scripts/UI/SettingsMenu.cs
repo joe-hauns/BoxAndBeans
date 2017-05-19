@@ -37,8 +37,14 @@ public class SettingsMenu : AbstractMenu {
 		foreach (var c in this.controllers) {
 			Dropdown.OptionData d = new Dropdown.OptionData ();
 			d.text = c.controllerName;
+			//this.controllerChooser.options.Add (d);
+		}
+		foreach (var c in this.controllers) {
+			Dropdown.OptionData d = new Dropdown.OptionData ();
+			d.text = "lala";
 			this.controllerChooser.options.Add (d);
 		}
+
 		controllerChooser.RefreshShownValue ();
 		ChooserValueChanged ();
 	}
@@ -69,7 +75,9 @@ public class SettingsMenu : AbstractMenu {
 		}
 	}
 
-	public override void PanelClicked(){}
+	public override void PanelClicked(){
+		
+	}
 
 	private void Cancel() {
 		panel.Show (mainMenu);

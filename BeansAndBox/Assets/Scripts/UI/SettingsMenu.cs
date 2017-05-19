@@ -41,7 +41,7 @@ public class SettingsMenu : AbstractMenu {
 		}
 		foreach (var c in this.controllers) {
 			Dropdown.OptionData d = new Dropdown.OptionData ();
-			d.text = "lala";
+			d.text = c.controllerName;
 			this.controllerChooser.options.Add (d);
 		}
 

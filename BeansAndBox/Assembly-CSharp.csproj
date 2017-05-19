@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Dao\GameState.cs" />
      <Compile Include="Assets\Scripts\Dao\GameStateDto.cs" />
      <Compile Include="Assets\Scripts\Dao\ScoreEntry.cs" />
+     <Compile Include="Assets\Scripts\Dao\SettingsDto.cs" />
      <Compile Include="Assets\Scripts\EchoStateNetwork\Buffer.cs" />
      <Compile Include="Assets\Scripts\EchoStateNetwork\ColorBoxByPose.cs" />
      <Compile Include="Assets\Scripts\EchoStateNetwork\CombFilter.cs" />
@@ -103,6 +104,8 @@
      <Compile Include="Assets\Scripts\lib\Thalmic\Myo.NET\libmyo.cs" />
      <Compile Include="Assets\Scripts\lib\Thalmic\ThalmicHub.cs" />
      <Compile Include="Assets\Scripts\lib\Thalmic\ThalmicMyo.cs" />
+     <Compile Include="Assets\SettingsDao.cs" />
+     <Compile Include="Assets\StateMachineController.cs" />
      <None Include="Assets\Materials\ContourShader.shader" />
      <None Include="Assets\Scripts\EchoStateNetwork\myo_patch\README.txt" />
  <Reference Include="UnityEngine.UI">

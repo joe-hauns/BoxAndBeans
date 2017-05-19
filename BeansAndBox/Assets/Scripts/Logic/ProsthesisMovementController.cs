@@ -5,8 +5,6 @@ using Pose = Thalmic.Myo.Pose;
 
 public class ProsthesisMovementController : MonoBehaviour {
 
-	/// <summary> Used if loading the controller fails. </summary>
-	public ProsthesisController defaultController;
 	public ControllerLoader loader;
 	public BoxCollider2D playground;
 	public float maxRotationVelocity; // in degrees per second
@@ -23,8 +21,6 @@ public class ProsthesisMovementController : MonoBehaviour {
 		this.rigid = GetComponent<Rigidbody> ();
 		this.animator = GetComponent<Animator> ();
 		this.gameTime = FindObjectOfType<GameTime> ();
-
-		this.controller = defaultController;
 	}
 
 	// Use this for initialization

@@ -24,7 +24,7 @@ namespace ProsthesisControllers {
 				} else if (0.080 < gameTime.time - startCocontraction) {
 					if (!changedState) {
 						this.rotate = !this.rotate;
-						myo.Vibrate (Thalmic.Myo.VibrationType.Medium);
+						myo.Vibrate (Thalmic.Myo.VibrationType.Short);
 						changedState = true;
 					}
 				}

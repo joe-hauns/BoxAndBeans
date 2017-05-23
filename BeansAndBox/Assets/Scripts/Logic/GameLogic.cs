@@ -8,8 +8,7 @@ using UnityEngine.Assertions;
 public class GameLogic : MonoBehaviour
 {
 
-	/* Settings to be configured using the unity editor. */
-	public int gameDurationInSec = 60;
+	public int gameDurationInSec { set; private get;}
 
 	/* References to objects that are found automatically in the unity hierarchy. */
 	private ScoreUi ui;

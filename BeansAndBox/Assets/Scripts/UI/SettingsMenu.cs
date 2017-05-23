@@ -62,24 +62,23 @@ public class SettingsMenu : AbstractMenu {
 		this.levels = new List<Level>(FindObjectsOfType<Level> ());
 		foreach (var l in this.levels) {
 			Dropdown.OptionData d = new Dropdown.OptionData ();
-			d.text = l.levelName;
+			d.text = l.name;
 			this.levelChooser.options.Add (d);
 			l.Disable ();
 		}
 
 		this.dto = dao.Load ();
 		validateDto (); // may be invalid if saved by an older version of the game
-		{
-			this.movementController.controller = controllers.Find (x => x.controllerName == dto.currentController);
-			this.controllerChooser.value = controllerChooser.options.FindIndex (x => x.text == dto.currentController);
-		}
+		this.movementController.controller = controllers.Find (x => x.controllerName == dto.currentController);
+		this.controllerChooser.value = controllerChooser.options.FindIndex (x => x.text == dto.currentController);
+		this.levelChooser.value = levelChooser.options.FindIndex (x => x.text == dto.currentLevel);
 		LoadLevel ();
 	}
 
 	private void validateDto() {
 		/* checking if data for each controller is available or setting to default if not */
 		if (dto == null) {
-			dto = new SettingsDto (defaultLevel.levelName,defaultController.controllerName, new SettingsDtoElem[0]);
+			dto = new SettingsDto (defaultLevel.name,defaultController.controllerName, new SettingsDtoElem[0]);
 		}
 		var oldDto = dto;
 		var confs = new SettingsDtoElem[controllers.Count];
@@ -93,7 +92,7 @@ public class SettingsMenu : AbstractMenu {
 		}
 
 		this.dto = new SettingsDto (
-			currentLevel: levels.Exists(l => l.levelName == dto.currentLevel) ? dto.currentLevel : defaultLevel.levelName,
+			currentLevel: levels.Exists(l => l.name == dto.currentLevel) ? dto.currentLevel : defaultLevel.name,
 			currentController: oldCurrentCtrlValid ? oldDto.currentController : defaultController.controllerName, 
 			settings: confs);
 	}
@@ -161,8 +160,8 @@ public class SettingsMenu : AbstractMenu {
 	private void LoadLevel () {
 		if (this.currentLevel != null)
 			this.currentLevel.Disable ();
-		this.currentLevel = levels.Find (l => l.levelName == levelChooser.options [levelChooser.value].text);
-		dto.currentLevel = currentLevel.levelName;
+		this.currentLevel = levels.Find (l => l.name == levelChooser.options [levelChooser.value].text);
+		dto.currentLevel = currentLevel.name;
 		currentLevel.Enable ();
 	}
 

@@ -111,7 +111,6 @@
      <Compile Include="Assets\SettingsDao.cs" />
      <Compile Include="Assets\SpawningArea.cs" />
      <Compile Include="Assets\StateMachineController.cs" />
-     <None Include="Assets\Materials\ContourShader.shader" />
      <None Include="Assets\Scripts\EchoStateNetwork\myo_patch\README.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

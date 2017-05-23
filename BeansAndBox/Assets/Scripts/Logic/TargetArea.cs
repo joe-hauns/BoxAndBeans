@@ -6,4 +6,12 @@ using System.Collections.Generic;
 /// <summary>
 /// Used only to identify the Target Area game object instead of using a tag.
 /// </summary>
-public class TargetArea : MonoBehaviour { }
+public class TargetArea : MonoBehaviour {
+
+	void OnTriggerExit(Collider collider) {
+		var bean = collider.GetComponent<Bean> ();
+		if (bean != null) {
+			bean.wasCollected = false;
+		}
+	}
+}

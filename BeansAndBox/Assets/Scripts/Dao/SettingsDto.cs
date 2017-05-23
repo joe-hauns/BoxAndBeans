@@ -4,10 +4,12 @@ using System;
 
 [Serializable]
 public class SettingsDto {
+	public string currentLevel;
 	public string currentController;
 	public SettingsDtoElem[] settings;
 
-	public SettingsDto(string currentController, SettingsDtoElem[] settings) {
+	public SettingsDto(string currentLevel,string currentController, SettingsDtoElem[] settings) {
+		this.currentLevel = currentLevel;
 		this.currentController = currentController;
 		this.settings = settings;
 	}

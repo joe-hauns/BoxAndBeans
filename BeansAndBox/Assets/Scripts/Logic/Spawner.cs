@@ -8,16 +8,15 @@ public class Spawner : MonoBehaviour
 
 	public int spawnPackageSize = 3;
 	public GameObject beanPrefab;
-	private BoxCollider2D spawningArea;
+	public SpawningArea spawningArea{ private get; set; }
 
 	public List<Bean> spawnedBeans { get; private set; }
 
 	void Awake ()
 	{
 		this.spawnedBeans = new List<Bean> ();
-		this.spawningArea = new List<BoxCollider2D> (GetComponentsInChildren <BoxCollider2D> ()).Find (c => c.name == "SpawningArea");
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -32,12 +31,9 @@ public class Spawner : MonoBehaviour
 	/// </summary>
 	private void SpawnBeans ()
 	{
+		
 		lock (this) {
 			var spawnCenterDist = beanPrefab.GetComponent<Bean> ().MaxDiameter;
-			Bounds b = new Bounds ();
-			b.min = spawningArea.bounds.min + new Vector3 (1, 1, 0) * spawnCenterDist / 2;
-			b.max = spawningArea.bounds.max - new Vector3 (1, 1, 0) * spawnCenterDist / 2;
-			var range = (b.max - b.min);
 
 			var spawnPoints = new List<Vector3> (spawnPackageSize);
 			var spawnStart = Time.realtimeSinceStartup;
@@ -48,15 +44,13 @@ public class Spawner : MonoBehaviour
 				Vector3 point;
 				do {
 					attempts++;
-					point = b.min;
-					point.x += range.x * UnityEngine.Random.value;
-					point.y += range.y * UnityEngine.Random.value;
+					point = spawningArea.GetRandomPoint(minBorderDistance: spawnCenterDist / 2);
+
 					if (Time.realtimeSinceStartup - spawnStart >= 0.5)
 						throw new Exception ("Too much time elapsed for spawning beans. Maybe the spawning area is too small to place enough beans?");
 				} while (
 					spawnPoints.Exists (p => Mathf.Abs ((p - point).magnitude) <= spawnCenterDist)
 					|| spawnedBeans.Exists (bean => Mathf.Abs ((bean.transform.position - point).magnitude) <= spawnCenterDist));
-				//if (attempts != 1) print ("attempts: " + attempts);
 				spawnPoints.Add (point);
 			}
 

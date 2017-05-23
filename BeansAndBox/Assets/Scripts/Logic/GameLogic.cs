@@ -8,8 +8,7 @@ using UnityEngine.Assertions;
 public class GameLogic : MonoBehaviour
 {
 
-	public int gameDurationInSec { set; private get;}
-
+	public Level level{ set; private get;}
 	/* References to objects that are found automatically in the unity hierarchy. */
 	private ScoreUi ui;
 	private Spawner spawner;
@@ -50,12 +49,12 @@ public class GameLogic : MonoBehaviour
 
 	void Update ()
 	{
-		float leftTime = Mathf.Max (0f, gameDurationInSec - gameTime.time);
+		float leftTime = Mathf.Max (0f, level.gameDurationInSeconds - gameTime.time);
 		bool gameTerminated = leftTime <= 0;
 
 		if (gameTerminated) {
 
-			onTermination (GameState.createDto(player, controllerStates,spawner.spawnedBeans));
+			onTermination (GameState.createDto(player, level.name,controllerStates,spawner.spawnedBeans));
 			this.ui.Hide ();
 			this.enabled = false;
 

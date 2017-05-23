@@ -4,15 +4,17 @@
 public class GameStateDto
 {
 	public string participant;
+	public string level;
 	public int score;
 	public BeanDto[] beans;
 	public PlayGroundDto playground;
 	public string worldTime;
 	public ControllerStateDto[] controllerPath;
 
-	public GameStateDto (string participant, int score, BeanDto[] beans, PlayGroundDto playground, DateTime time, ControllerStateDto[] controllerPath)
+	public GameStateDto (string participant,string level, int score, BeanDto[] beans, PlayGroundDto playground, DateTime time, ControllerStateDto[] controllerPath)
 	{
 		this.participant = participant;
+		this.level = level;
 		this.score = score;
 		this.beans = beans;
 		this.playground = playground;

@@ -8,7 +8,7 @@ using System;
 
 public class GameState
 {
-	public static GameStateDto createDto (string player, List<ControllerStateDto> controllerStates, List<Bean> spawnedBeans)
+	public static GameStateDto createDto (string player, string level, List<ControllerStateDto> controllerStates, List<Bean> spawnedBeans)
 	{
 		int score = 0;
 
@@ -26,6 +26,7 @@ public class GameState
 		return new GameStateDto (
 			score: score,
 			participant: player,
+			level: level,
 			time: DateTime.Now,
 			beans: beans,
 			playground: new PlayGroundDto(

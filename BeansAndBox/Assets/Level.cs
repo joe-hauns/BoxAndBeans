@@ -28,7 +28,7 @@ public class Level : MonoBehaviour {
 
 	public void Enable() {
 		spawner.spawningArea = this.spawningArea;
-		logic.gameDurationInSec = this.gameDurationInSeconds;
+		logic.level = this;
 		invisibleWalls.ForEach (x => x.gameObject.SetActive (true));
 		ordenaryWalls.ForEach (x => x.gameObject.SetActive (true));
 		this.targetArea.gameObject.SetActive (true);

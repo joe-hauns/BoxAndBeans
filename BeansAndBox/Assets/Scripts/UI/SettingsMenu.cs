@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 public class SettingsMenu : AbstractMenu {
 
 	public Level defaultLevel;
 	private List<Level> levels;
 	private Dropdown levelChooser;
+		//savesDir = Path.Combine (Application.persistentDataPath, "Scores");
 
 	public ProsthesisController defaultController;
 	private List<ProsthesisController> controllers;
@@ -18,18 +20,20 @@ public class SettingsMenu : AbstractMenu {
 	private MainMenu mainMenu;
 	private Button cancelButton;
 	private Button saveButton;
-	private InputField configPath;
+	private InputField controllerConfigDir;
+	private InputField persistenceDir;
 	private ProsthesisMovementController movementController;
 	private Text errMsg;
 	private SettingsDto dto;
 	private SettingsDao dao;
 	private Level currentLevel;
+	private GameDataDao dataDao;
 
 	protected override void _Awake() {
 		/* logic objects */
 		this.movementController = FindObjectOfType<ProsthesisMovementController> ();
 		this.dao = FindObjectOfType<SettingsDao> ();
-
+		this.dataDao = FindObjectOfType<GameDataDao> ();
 
 		/* menu objects */
 		this.panel = FindObjectOfType<MenuPanel> ();
@@ -43,7 +47,10 @@ public class SettingsMenu : AbstractMenu {
 
 		var texts = new List<Text>(GetComponentsInChildren<Text> ());
 		this.errMsg = texts.Find (x => x.name == "ErrMsg");
-		this.configPath = GetComponentInChildren<InputField> ();
+
+		var inputs = new List<InputField>(GetComponentsInChildren<InputField> ());
+		this.controllerConfigDir = inputs.Find (x => x.name == "ConfigFile");
+		this.persistenceDir = inputs.Find (x => x.name == "PersistenceDir");
 
 		var choosers = new List<Dropdown> (GetComponentsInChildren<Dropdown> ());
 		this.controllerChooser = choosers.Find (x => x.name == "ControllerChooser");
@@ -67,18 +74,23 @@ public class SettingsMenu : AbstractMenu {
 			l.Disable ();
 		}
 
-		this.dto = dao.Load ();
-		validateDto (); // may be invalid if saved by an older version of the game
+		LoadSettingsDto (); 
 		this.movementController.controller = controllers.Find (x => x.controllerName == dto.currentController);
 		this.controllerChooser.value = controllerChooser.options.FindIndex (x => x.text == dto.currentController);
 		this.levelChooser.value = levelChooser.options.FindIndex (x => x.text == dto.currentLevel);
 		LoadLevel ();
+		this.persistenceDir.text = dto.persistenceDir;
 	}
 
-	private void validateDto() {
-		/* checking if data for each controller is available or setting to default if not */
+	private void LoadSettingsDto() {
+		this.dto = dao.Load ();
+		/* validating data */
 		if (dto == null) {
-			dto = new SettingsDto (defaultLevel.name,defaultController.controllerName, new SettingsDtoElem[0]);
+			dto = new SettingsDto (
+				currentLevel: defaultLevel.name,
+				currentController: defaultController.controllerName, 
+				settings: new SettingsDtoElem[0], 
+				persistenceDir: Path.Combine(Application.persistentDataPath, "Scores"));
 		}
 		var oldDto = dto;
 		var confs = new SettingsDtoElem[controllers.Count];
@@ -94,7 +106,8 @@ public class SettingsMenu : AbstractMenu {
 		this.dto = new SettingsDto (
 			currentLevel: levels.Exists(l => l.name == dto.currentLevel) ? dto.currentLevel : defaultLevel.name,
 			currentController: oldCurrentCtrlValid ? oldDto.currentController : defaultController.controllerName, 
-			settings: confs);
+			settings: confs,
+			persistenceDir: dto.persistenceDir);
 	}
 
 	void Start() {
@@ -124,11 +137,11 @@ public class SettingsMenu : AbstractMenu {
 		errMsg.text = "";
 		var controller = controllers [this.controllerChooser.value];
 		if (controller.needsConfiguration) {
-			configPath.text = dto.Find(controller.controllerName).configuration;
-			configPath.readOnly = false;
+			controllerConfigDir.text = dto.Find(controller.controllerName).configuration;
+			controllerConfigDir.readOnly = false;
 		} else {
-			configPath.text = "( Does not need to be configured. )";
-			configPath.readOnly = true;
+			controllerConfigDir.text = "( Does not need to be configured. )";
+			controllerConfigDir.readOnly = true;
 		}
 	}
 
@@ -140,7 +153,7 @@ public class SettingsMenu : AbstractMenu {
 
 	private bool LoadController() {
 		var controller = controllers [this.controllerChooser.value];
-		var result = controller.SetConfiguration (configPath.text);
+		var result = controller.SetConfiguration (controllerConfigDir.text);
 		if (result.isError) {
 			errMsg.text = result.errMsg;
 			return false;
@@ -151,7 +164,7 @@ public class SettingsMenu : AbstractMenu {
 			movementController.controller = controller;
 
 			var conf = dto.Find(controller.controllerName);
-			conf.configuration = configPath.text;
+			conf.configuration = controllerConfigDir.text;
 			dto.currentController = controller.controllerName;
 			return true;
 		}
@@ -165,11 +178,18 @@ public class SettingsMenu : AbstractMenu {
 		currentLevel.Enable ();
 	}
 
+	private void LoadPersistenceDir() {
+		dataDao.persistenceDir = persistenceDir.text;
+		dto.persistenceDir = persistenceDir.text;
+	}
+
 
 	private void Save() {
 		if (LoadController ()) {
-			panel.Show (mainMenu);
 			LoadLevel ();
+			LoadPersistenceDir ();
+
+			panel.Show (mainMenu);
 			dao.Save (dto);		
 		}
 	}

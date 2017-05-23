@@ -6,9 +6,11 @@ using System;
 public class SettingsDto {
 	public string currentLevel;
 	public string currentController;
+	public string persistenceDir;
 	public SettingsDtoElem[] settings;
 
-	public SettingsDto(string currentLevel,string currentController, SettingsDtoElem[] settings) {
+	public SettingsDto(string currentLevel,string currentController, SettingsDtoElem[] settings, string persistenceDir) {
+		this.persistenceDir = persistenceDir;
 		this.currentLevel = currentLevel;
 		this.currentController = currentController;
 		this.settings = settings;

@@ -5,17 +5,21 @@ using System.Collections.Generic;
 
 public class GameDataDao : MonoBehaviour {
 
-	private string savesDir;
-
-	void Awake() {
-		savesDir = Path.Combine (Application.persistentDataPath, "Saves");
-		if (!Directory.Exists (savesDir))
-			Directory.CreateDirectory (savesDir);
+	private string _savesDir;
+	public string persistenceDir { 
+		private get{ return _savesDir; } 
+		set {
+			_savesDir = value;
+			if (!Directory.Exists (value))
+				Directory.CreateDirectory (value);
+		}
 	}
+
+		//savesDir = Path.Combine (Application.persistentDataPath, "Scores");
 
 	public void Save(GameStateDto dto) {
 		string json = JsonUtility.ToJson(dto);
-		var path = Path.Combine (savesDir, dto.participant + "_" + dto.dateTime.ToString ("yyyy-MM-dd_hh-mm-ss") + ".json");
+		var path = Path.Combine (persistenceDir, dto.participant + "_" + dto.dateTime.ToString ("yyyy-MM-dd_hh-mm-ss") + ".json");
 
 		if (path.Length != 0) {
 			using (var writer = new System.IO.StreamWriter (path)) {
@@ -25,7 +29,7 @@ public class GameDataDao : MonoBehaviour {
 	}
 
 	public List<GameStateDto> AllGames() {
-		return new List<string> (Directory.GetFiles (savesDir)) .ConvertAll (file => {
+		return new List<string> (Directory.GetFiles (persistenceDir)) .ConvertAll (file => {
 			return JsonUtility.FromJson<GameStateDto> (File.ReadAllText (file));
 		});
 	}

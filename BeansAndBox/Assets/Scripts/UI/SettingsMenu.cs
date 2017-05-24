@@ -63,6 +63,7 @@ public class SettingsMenu : AbstractMenu {
 			Dropdown.OptionData d = new Dropdown.OptionData ();
 			d.text = c.controllerName;
 			this.controllerChooser.options.Add (d);
+			c.enabled = false;
 		}
 
 
@@ -78,6 +79,7 @@ public class SettingsMenu : AbstractMenu {
 		this.movementController.controller = controllers.Find (x => x.controllerName == dto.currentController);
 		this.controllerChooser.value = controllerChooser.options.FindIndex (x => x.text == dto.currentController);
 		this.levelChooser.value = levelChooser.options.FindIndex (x => x.text == dto.currentLevel);
+		LoadController ();
 		LoadLevel ();
 		this.persistenceDir.text = dto.persistenceDir;
 	}

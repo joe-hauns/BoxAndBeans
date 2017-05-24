@@ -7,12 +7,14 @@ using Pose = Thalmic.Myo.Pose;
 namespace ProsthesisControllers {
 	public class StateMachineController : MyoController {
 
+		public bool vibrateOnStateChange = false;
+
 		private bool rotate = true;
 		private bool changedState = false;
 		private float startCocontraction = -1;
 		private GameTime gameTime;
 
-		public override string controllerName { get { return "State Machine"; } }
+		public override string controllerName { get { return "State Machine (Thalimc)"; } }
 		public override string defaultConfigFile { get{ return ""; } }
 		public override bool needsConfiguration { get{ return false; } }
 		public override ConfigResult SetConfiguration (string configPath) { return ConfigResult.OK; }
@@ -24,7 +26,8 @@ namespace ProsthesisControllers {
 				} else if (0.080 < gameTime.time - startCocontraction) {
 					if (!changedState) {
 						this.rotate = !this.rotate;
-						myo.Vibrate (Thalmic.Myo.VibrationType.Short);
+						if (vibrateOnStateChange)
+							myo.Vibrate (Thalmic.Myo.VibrationType.Short);
 						changedState = true;
 					}
 				}

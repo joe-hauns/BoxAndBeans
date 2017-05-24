@@ -7,8 +7,8 @@ namespace ProsthesisControllers
 	{
 
 		protected ThalmicMyo myo;
-		[Range (0, 90)] public float maxHorizontalAngle = 45f;
-		[Range (0, 90)] public float maxAngleUp = 55f;
+		[Range (0, 90)] public float maxHorizontalAngle = 40f;
+		[Range (0, 90)] public float maxAngleUp = 50f;
 		[Range (0, 90)] public float maxAngleDown = 5f;
 
 		private Vector3 calibrationAngles;

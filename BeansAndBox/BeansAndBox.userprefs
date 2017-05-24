@@ -1,18 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/StateMachineController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SimpleStateMachineController.cs">
     <Files>
-      <File FileName="Assets/Scripts/UI/SettingsMenu.cs" Line="62" Column="3" />
-      <File FileName="Assets/Scripts/Dao/SettingsDto.cs" Line="11" Column="45" />
-      <File FileName="Assets/Scripts/Logic/ProsthesisMovementController.cs" Line="62" Column="1" />
-      <File FileName="Assets/Scripts/ProsthesisControllers/DefaultPoseController.cs" Line="1" Column="1" />
-      <File FileName="Assets/StateMachineController.cs" Line="27" Column="50" />
+      <File FileName="Assets/SimpleStateMachineController.cs" Line="79" Column="39" />
+      <File FileName="Assets/Scripts/lib/Thalmic/ThalmicMyo.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UI/Debug/MyoDebugUi.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Filter.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UI/SettingsMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ProsthesisControllers/MyoController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/jo/Documents/studium/2016WS/bac/project/BeansAndBox/Assets/Scripts/UI/SettingsMenu.cs" line="108" column="2" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

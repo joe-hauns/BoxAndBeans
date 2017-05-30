@@ -47,9 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Debug\MyoDebug.cs" />
-     <Compile Include="Assets\InvisibleWall.cs" />
-     <Compile Include="Assets\Level.cs" />
-     <Compile Include="Assets\OrdenaryWall.cs" />
      <Compile Include="Assets\Scripts\Dao\ControllerLoader.cs" />
      <Compile Include="Assets\Scripts\Dao\ControllerMovementDto.cs" />
      <Compile Include="Assets\Scripts\Dao\ControllerStateDto.cs" />
@@ -58,32 +55,40 @@
      <Compile Include="Assets\Scripts\Dao\GameState.cs" />
      <Compile Include="Assets\Scripts\Dao\GameStateDto.cs" />
      <Compile Include="Assets\Scripts\Dao\ScoreEntry.cs" />
+     <Compile Include="Assets\Scripts\Dao\SettingsDao.cs" />
      <Compile Include="Assets\Scripts\Dao\SettingsDto.cs" />
      <Compile Include="Assets\Scripts\Dao\SimpleStateMachineControllerDto.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\Buffer.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\ColorBoxByPose.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\CombFilter.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\DenseMatrix.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\ESN.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\Features.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\FileRead.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\GMLVQ.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\SimpleJSON.cs" />
-     <Compile Include="Assets\Scripts\EchoStateNetwork\WeightMatrix.cs" />
-     <Compile Include="Assets\Scripts\Filter.cs" />
      <Compile Include="Assets\Scripts\Logic\Bean.cs" />
      <Compile Include="Assets\Scripts\Logic\GameLogic.cs" />
      <Compile Include="Assets\Scripts\Logic\GameTime.cs" />
      <Compile Include="Assets\Scripts\Logic\Grabber.cs" />
-     <Compile Include="Assets\Scripts\Logic\ProsthesisMovementController.cs" />
+     <Compile Include="Assets\Scripts\Logic\Level.cs" />
+     <Compile Include="Assets\Scripts\Logic\ProsthesisMover.cs" />
      <Compile Include="Assets\Scripts\Logic\Spawner.cs" />
+     <Compile Include="Assets\Scripts\Logic\SpawningArea.cs" />
      <Compile Include="Assets\Scripts\Logic\TargetArea.cs" />
      <Compile Include="Assets\Scripts\Logic\TestRunLogic.cs" />
+     <Compile Include="Assets\Scripts\Markers\InvisibleWall.cs" />
+     <Compile Include="Assets\Scripts\Markers\OrdenaryWall.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\DefaultPoseController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\EchoStateController.cs" />
+     <Compile Include="Assets\Scripts\ProsthesisControllers\GMLVQController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\KeyboardController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\MyoController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\ProsthesisController.cs" />
+     <Compile Include="Assets\Scripts\ProsthesisControllers\SimpleStateMachineController.cs" />
+     <Compile Include="Assets\Scripts\ProsthesisControllers\StateMachineController.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\Buffer.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\ColorBoxByPose.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\CombFilter.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\DenseMatrix.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\ESN.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\Features.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\FileRead.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\GMLVQ.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\RMSFilter.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\SimpleJSON.cs" />
+     <Compile Include="Assets\Scripts\SignalPorcessing\WeightMatrix.cs" />
      <Compile Include="Assets\Scripts\UI\AbstractMenu.cs" />
      <Compile Include="Assets\Scripts\UI\Debug\EchoStateDebugUI.cs" />
      <Compile Include="Assets\Scripts\UI\Debug\EsnDebugUiGroup.cs" />
@@ -109,11 +114,6 @@
      <Compile Include="Assets\Scripts\lib\Thalmic\Myo.NET\libmyo.cs" />
      <Compile Include="Assets\Scripts\lib\Thalmic\ThalmicHub.cs" />
      <Compile Include="Assets\Scripts\lib\Thalmic\ThalmicMyo.cs" />
-     <Compile Include="Assets\SettingsDao.cs" />
-     <Compile Include="Assets\SimpleStateMachineController.cs" />
-     <Compile Include="Assets\SpawningArea.cs" />
-     <Compile Include="Assets\StateMachineController.cs" />
-     <None Include="Assets\Scripts\EchoStateNetwork\myo_patch\README.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

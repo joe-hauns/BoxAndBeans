@@ -22,7 +22,7 @@ public class SettingsMenu : AbstractMenu {
 	private Button saveButton;
 	private InputField controllerConfigDir;
 	private InputField persistenceDir;
-	private ProsthesisMovementController movementController;
+	private ProsthesisMover movementController;
 	private Text errMsg;
 	private SettingsDto dto;
 	private SettingsDao dao;
@@ -31,7 +31,7 @@ public class SettingsMenu : AbstractMenu {
 
 	protected override void _Awake() {
 		/* logic objects */
-		this.movementController = FindObjectOfType<ProsthesisMovementController> ();
+		this.movementController = FindObjectOfType<ProsthesisMover> ();
 		this.dao = FindObjectOfType<SettingsDao> ();
 		this.dataDao = FindObjectOfType<GameDataDao> ();
 

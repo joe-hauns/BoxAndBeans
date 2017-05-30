@@ -17,12 +17,12 @@ public class GameLogic : MonoBehaviour
 	/* State of the current game run. */
 	private string player;
 	private Action<GameStateDto> onTermination;
-	private ProsthesisMovementController controller;
+	private ProsthesisMover controller;
 	private List<ControllerStateDto> controllerStates;
 
 	void Awake () {
 		this.ui = GetComponentInChildren<ScoreUi> ();
-		this.controller = FindObjectOfType<ProsthesisMovementController> ();
+		this.controller = FindObjectOfType<ProsthesisMover> ();
 		this.spawner = FindObjectOfType<Spawner> ();
 		this.gameTime = FindObjectOfType<GameTime> ();
 	}

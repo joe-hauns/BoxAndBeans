@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pose = Thalmic.Myo.Pose;
 
-public class ProsthesisMovementController : MonoBehaviour {
+public class ProsthesisMover : MonoBehaviour {
 
 	public ControllerLoader loader;
 	public BoxCollider2D playground;

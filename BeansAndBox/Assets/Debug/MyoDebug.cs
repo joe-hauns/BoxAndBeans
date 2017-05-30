@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Thalmic;
-using ProsthesisControllers;
 
 public class MyoDebug : MonoBehaviour {
 

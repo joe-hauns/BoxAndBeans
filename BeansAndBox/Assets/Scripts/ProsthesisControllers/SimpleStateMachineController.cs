@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using ProsthesisControllers;
 using System.Timers;
 
 public class SimpleStateMachineController : MyoController {

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class Grabber : MonoBehaviour {
 
-	private ProsthesisMovementController prosthesis;
+	private ProsthesisMover prosthesis;
 	private bool grabberLocationInTargetArea = false;
 
 	void Awake () {
-		prosthesis = FindObjectOfType<ProsthesisMovementController> ();
+		prosthesis = FindObjectOfType<ProsthesisMover> ();
 	}
 
 	void Start() {

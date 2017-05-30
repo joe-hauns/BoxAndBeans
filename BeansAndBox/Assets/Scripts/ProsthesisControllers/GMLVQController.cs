@@ -45,8 +45,7 @@ public class GMLVQController : MyoController {
 	protected override void _Update() {
 		if (myo.isPaired && buffer.store (myo.emg)) {
 			var features = Features.extractFeatures (filter.filter (buffer.retrieve ()));
-
-			var output = model.GetOutput (features);
+			var output = model.GetOutput (DenseMatrix.multiply (trafoMatrix, features));
 			openVelo = (float) output [0];
 			rotationVelo = (float) output [1];
 		}

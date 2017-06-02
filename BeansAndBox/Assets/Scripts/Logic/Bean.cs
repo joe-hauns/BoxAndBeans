@@ -45,8 +45,16 @@ public class Bean : MonoBehaviour
 		get{ return timeCollected != -1;} 
 		set {
 			if (value) {
+				rigid.constraints = rigid.constraints & ~(RigidbodyConstraints.FreezeRotationY);
+				gameObject.layer = 0;
+				rigid.useGravity = true;
+				rigid.drag = dragAfterFirstGrab;
+
 				this.timeCollected = gameTime.time;
 			} else {
+				rigid.constraints = rigid.constraints | (RigidbodyConstraints.FreezeRotationY);
+				rigid.useGravity = false;
+
 				this.timeCollected = -1;
 			}
 		} }
@@ -64,7 +72,6 @@ public class Bean : MonoBehaviour
 				}
 			} else {
 				/* stays the same after first release */
-				rigid.useGravity = true;
 				rigid.drag = dragAfterFirstGrab;
 			}
 			/* on every grab */

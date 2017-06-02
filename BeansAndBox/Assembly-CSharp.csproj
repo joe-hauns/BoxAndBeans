@@ -70,14 +70,13 @@
      <Compile Include="Assets\Scripts\Logic\TestRunLogic.cs" />
      <Compile Include="Assets\Scripts\Markers\InvisibleWall.cs" />
      <Compile Include="Assets\Scripts\Markers\OrdenaryWall.cs" />
-     <Compile Include="Assets\Scripts\ProsthesisControllers\DefaultPoseController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\EchoStateController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\GMLVQController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\KeyboardController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\MyoController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\ProsthesisController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\SimpleStateMachineController.cs" />
-     <Compile Include="Assets\Scripts\ProsthesisControllers\StateMachineController.cs" />
+     <Compile Include="Assets\Scripts\ProsthesisControllers\ThalmictPoseController.cs" />
      <Compile Include="Assets\Scripts\SignalPorcessing\Buffer.cs" />
      <Compile Include="Assets\Scripts\SignalPorcessing\ColorBoxByPose.cs" />
      <Compile Include="Assets\Scripts\SignalPorcessing\CombFilter.cs" />

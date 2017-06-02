@@ -10,6 +10,7 @@ public class Level : MonoBehaviour {
 	private List<OrdenaryWall> ordenaryWalls;
 	private TargetArea targetArea;
 	private GameLogic logic;
+	private TestRunLogic testLogic;
 
 	private Spawner spawner;
 
@@ -19,6 +20,7 @@ public class Level : MonoBehaviour {
 		this.invisibleWalls = new List<InvisibleWall> (GetComponentsInChildren<InvisibleWall> ());
 		this.ordenaryWalls = new List<OrdenaryWall> (GetComponentsInChildren<OrdenaryWall> ());
 
+		this.testLogic = FindObjectOfType<TestRunLogic> ();
 		this.logic = FindObjectOfType<GameLogic> ();
 		this.spawner = FindObjectOfType<Spawner> ();
 		this.targetArea = GetComponentInChildren<TargetArea> ();
@@ -29,6 +31,7 @@ public class Level : MonoBehaviour {
 	public void Enable() {
 		spawner.spawningArea = this.spawningArea;
 		logic.level = this;
+		testLogic.vanishingTimeInSec = gameDurationInSeconds;
 		invisibleWalls.ForEach (x => x.gameObject.SetActive (true));
 		ordenaryWalls.ForEach (x => x.gameObject.SetActive (true));
 		this.targetArea.gameObject.SetActive (true);

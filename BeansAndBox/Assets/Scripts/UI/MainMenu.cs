@@ -74,13 +74,13 @@ public class MainMenu : AbstractMenu
 	{
 		//Event.current.keyCode
 		switch (keyCode) {
-		case KeyCode.KeypadEnter: 
-		case KeyCode.Return:
-			LaunchGame ();
-			break;
-		case KeyCode.Escape:
-			Exit ();
-			break;
+		//case KeyCode.KeypadEnter: 
+		//case KeyCode.Return:
+			//LaunchGame ();
+			//break;
+		//case KeyCode.Escape:
+			//Exit ();
+			//break;
 		default:
 			break;
 		}

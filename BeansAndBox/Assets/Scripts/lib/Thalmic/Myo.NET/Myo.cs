@@ -39,7 +39,7 @@ namespace Thalmic.Myo
 
         public event EventHandler<RssiEventArgs> Rssi;
         
-        public event EventHandler<EmgDataEventArgs> EmgData;
+        //public event EventHandler<EmgDataEventArgs> EmgData; // NEVER USED
 
         public event EventHandler<MyoEventArgs> Unlocked;
 

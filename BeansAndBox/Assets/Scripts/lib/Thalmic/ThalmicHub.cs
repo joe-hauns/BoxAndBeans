@@ -122,8 +122,8 @@ public class ThalmicHub : MonoBehaviour
             _hub = new Thalmic.Myo.Hub (applicationIdentifier, hub_MyoPaired);
 
             _hub.SetLockingPolicy (lockingPolicy);
-        } catch (System.Exception) {
-            Debug.Log ("ThalmicHub failed to initialize.");
+        } catch (System.Exception e) {
+            Debug.Log ("ThalmicHub failed to initialize: "+e);
             return false;
         }
         return true;

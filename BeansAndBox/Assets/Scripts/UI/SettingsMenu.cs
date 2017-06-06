@@ -74,7 +74,6 @@ public class SettingsMenu : AbstractMenu {
 			this.levelChooser.options.Add (d);
 			l.Disable ();
 		}
-
 		LoadSettingsDto (); 
 		this.movementController.controller = controllers.Find (x => x.controllerName == dto.currentController);
 		this.controllerChooser.value = controllerChooser.options.FindIndex (x => x.text == dto.currentController);

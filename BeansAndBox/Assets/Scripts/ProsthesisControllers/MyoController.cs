@@ -5,9 +5,8 @@ public abstract class MyoController : ProsthesisController
 {
 
 	protected ThalmicMyo myo;
-	[Range (0, 90)] public float maxHorizontalAngle = 40f;
-	[Range (0, 90)] public float maxAngleUp = 50f;
-	[Range (0, 90)] public float maxAngleDown = 5f;
+	[Range (0, 90)] public float maxHorizontalAngle = 30f;
+	[Range (0, 90)] public float maxVerticalAngle = 25f;
 
 	private Vector3 calibrationAngles;
 
@@ -16,13 +15,29 @@ public abstract class MyoController : ProsthesisController
 		_Awake ();
 	}
 
+	void OnEnable() {
+		var hub = FindObjectOfType<ThalmicHub> ();
+		if (!hub.hubInitialized) {
+			Debug.Log ("attempting to reset hub");
+			hub.ResetHub ();
+		}
+		_OnEnable ();
+	}
+
+	void OnDisable() {
+		_OnDisable ();
+	}
+
+	protected virtual void _OnEnable () {}
+	protected virtual void _OnDisable () {}
+
 	// Update is called once per frame
 	void Update ()
 	{
 		_Update ();
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			Debug.Log ("calibrating");
-			calibrationAngles = myo.transform.localEulerAngles + new Vector3(0.5f * (maxAngleUp + maxAngleDown) - maxAngleDown, 0,0);
+			calibrationAngles = myo.transform.localEulerAngles; //+ new Vector3(0.5f * (maxAngleUp + maxAngleDown) - maxAngleDown, 0,0);
 		}
 	}
 
@@ -36,11 +51,11 @@ public abstract class MyoController : ProsthesisController
 		rotation.y = cropAngleRange (rotation.y);
 
 
-		var vertical = Mathf.Min (maxAngleUp, Mathf.Max (-maxAngleDown, -rotation.x));
+		var vertical = Mathf.Min (maxVerticalAngle, Mathf.Max (-maxVerticalAngle, -rotation.x));
 		var horizontal = Mathf.Min (maxHorizontalAngle, Mathf.Max (-maxHorizontalAngle, rotation.y));
 
 		var x = (horizontal + maxHorizontalAngle) / (2 * maxHorizontalAngle);
-		var y = (vertical + maxAngleDown) / (maxAngleUp + maxAngleDown);
+		var y = (vertical + maxVerticalAngle) / (2 * maxVerticalAngle);
 		return new Vector2 (x, y);
 	}
 

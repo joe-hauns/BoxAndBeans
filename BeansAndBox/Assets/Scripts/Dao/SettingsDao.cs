@@ -22,7 +22,7 @@ public class SettingsDao : MonoBehaviour {
 	public SettingsDto Load() {
 		try {
 			return JsonUtility.FromJson<SettingsDto> (File.ReadAllText (settingsFile));
-		} catch (System.Exception e) {
+		} catch (System.Exception ) {
 			return null;
 		}
 	}

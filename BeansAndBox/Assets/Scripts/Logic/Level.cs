@@ -15,27 +15,27 @@ public class Level : MonoBehaviour {
 	private TestRunLogic testLogic;
 
 	private Spawner spawner;
-	private bool didAwake = false;
+	private bool didInit = false;
 
 	void Awake() {
-		print ("awake "+this.name);
-		this.spawningArea = GetComponentInChildren<SpawningArea> ();
-		this.invisibleWalls = new List<InvisibleWall> (GetComponentsInChildren<InvisibleWall> ());
-		this.ordenaryWalls = new List<OrdenaryWall> (GetComponentsInChildren<OrdenaryWall> ());
+		if (!didInit) {
+			this.spawningArea = GetComponentInChildren<SpawningArea> ();
+			this.invisibleWalls = new List<InvisibleWall> (GetComponentsInChildren<InvisibleWall> ());
+			this.ordenaryWalls = new List<OrdenaryWall> (GetComponentsInChildren<OrdenaryWall> ());
 
-		this.testLogic = FindObjectOfType<TestRunLogic> ();
-		this.logic = FindObjectOfType<GameLogic> ();
-		this.spawner = FindObjectOfType<Spawner> ();
-		this.targetArea = GetComponentInChildren<TargetArea> ();
+			this.testLogic = FindObjectOfType<TestRunLogic> ();
+			this.logic = FindObjectOfType<GameLogic> ();
+			this.spawner = FindObjectOfType<Spawner> ();
+			this.targetArea = GetComponentInChildren<TargetArea> ();
+			if (targetArea == null)
+				throw new System.Exception ();
 
-		this.didAwake = true;
-		//Disable ();
+			this.didInit = true;
+		}
 	}
 
 	public void Enable() {
-		if (!didAwake)
-			Awake ();
-		print ("enable "+this.name);
+		Awake ();
 		spawner.spawningArea = this.spawningArea;
 		logic.level = this;
 		testLogic.vanishingTimeInSec = gameDurationInSeconds;
@@ -45,9 +45,7 @@ public class Level : MonoBehaviour {
 	}
 
 	public void Disable() {
-		if (!didAwake)
-			Awake ();
-		print ("disable "+this.name);
+		Awake ();
 		invisibleWalls.ForEach (x => x.gameObject.SetActive (false));
 		ordenaryWalls.ForEach (x => x.gameObject.SetActive (false));
 		this.targetArea.gameObject.SetActive (false);

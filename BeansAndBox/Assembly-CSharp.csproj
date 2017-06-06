@@ -50,7 +50,6 @@
      <Compile Include="Assets\Scripts\Dao\ControllerLoader.cs" />
      <Compile Include="Assets\Scripts\Dao\ControllerMovementDto.cs" />
      <Compile Include="Assets\Scripts\Dao\ControllerStateDto.cs" />
-     <Compile Include="Assets\Scripts\Dao\EchoStateDao.cs" />
      <Compile Include="Assets\Scripts\Dao\GameDataDao.cs" />
      <Compile Include="Assets\Scripts\Dao\GameState.cs" />
      <Compile Include="Assets\Scripts\Dao\GameStateDto.cs" />
@@ -75,8 +74,8 @@
      <Compile Include="Assets\Scripts\ProsthesisControllers\KeyboardController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\MyoController.cs" />
      <Compile Include="Assets\Scripts\ProsthesisControllers\ProsthesisController.cs" />
-     <Compile Include="Assets\Scripts\ProsthesisControllers\SimpleStateMachineController.cs" />
-     <Compile Include="Assets\Scripts\ProsthesisControllers\ThalmictPoseController.cs" />
+     <Compile Include="Assets\Scripts\ProsthesisControllers\StateMachineController.cs" />
+     <Compile Include="Assets\Scripts\ProsthesisControllers\ThalmicPoseController.cs" />
      <Compile Include="Assets\Scripts\SignalPorcessing\Buffer.cs" />
      <Compile Include="Assets\Scripts\SignalPorcessing\ColorBoxByPose.cs" />
      <Compile Include="Assets\Scripts\SignalPorcessing\CombFilter.cs" />

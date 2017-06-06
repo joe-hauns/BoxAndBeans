@@ -5,7 +5,6 @@ using Pose = Thalmic.Myo.Pose;
 
 public class ProsthesisMover : MonoBehaviour {
 
-	public ControllerLoader loader;
 	public BoxCollider2D playground;
 	public float maxRotationVelocity; // in degrees per second
 	public float minOpeningDuration;  // in seconds

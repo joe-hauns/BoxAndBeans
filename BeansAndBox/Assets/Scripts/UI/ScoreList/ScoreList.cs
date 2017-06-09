@@ -36,7 +36,7 @@ public class ScoreList : MonoBehaviour {
 			startIndex = Mathf.Max (0, lastGameIndex - (ui.Count - 1));
 		} else {
 			var minPlayerIndex = 1; // one may only be the first in the list if one is really the best player
-			var maxPlayerIndex = ui.Count - 2; // one may only be the last in the listg if one is really the worst player
+			var maxPlayerIndex = 1; // one may be at most the player in the middle
 			var rand = UnityEngine.Random.value;
 			startIndex = Mathf.Max(0, lastGameIndex - maxPlayerIndex + (int)(rand * (maxPlayerIndex - minPlayerIndex)));
 		}

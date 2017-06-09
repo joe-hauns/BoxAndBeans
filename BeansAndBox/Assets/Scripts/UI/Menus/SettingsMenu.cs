@@ -78,37 +78,37 @@ public class SettingsMenu : AbstractMenu {
 		this.movementController.controller = controllers.Find (x => x.controllerName == dto.currentController);
 		this.controllerChooser.value = controllerChooser.options.FindIndex (x => x.text == dto.currentController);
 		this.levelChooser.value = levelChooser.options.FindIndex (x => x.text == dto.currentLevel);
+		this.persistenceDir.text = dto.persistenceDir;
 		LoadController ();
 		LoadLevel ();
-		this.persistenceDir.text = dto.persistenceDir;
+		LoadPersistenceDir ();
 	}
 
 	private void LoadSettingsDto() {
-		this.dto = dao.Load ();
+		var oldDto = dao.Load ();
 		/* validating data */
-		if (dto == null) {
-			dto = new SettingsDto (
+		if (oldDto == null) {
+			oldDto = new SettingsDto (
 				currentLevel: defaultLevel.name,
 				currentController: defaultController.controllerName, 
-				settings: new SettingsDtoElem[0], 
+				controllerConfs: new ControllerConfigDto[0], 
 				persistenceDir: Path.Combine(Application.persistentDataPath, "Scores"));
 		}
-		var oldDto = dto;
-		var confs = new SettingsDtoElem[controllers.Count];
+		var confs = new ControllerConfigDto[controllers.Count];
 		var oldCurrentCtrlValid = false;
 		for (int i = 0; i < controllers.Count; i++) {
 			var ctrl = controllers [i];
 			var conf = oldDto.Find (ctrl.controllerName);
-			if (conf == null) conf = new SettingsDtoElem (ctrl.controllerName, ctrl.defaultConfigFile);
+			if (conf == null) conf = new ControllerConfigDto (ctrl.controllerName, ctrl.defaultConfigFile);
 			confs [i] = conf;
 			oldCurrentCtrlValid = oldCurrentCtrlValid || oldDto.currentController == ctrl.controllerName;
 		}
 
 		this.dto = new SettingsDto (
-			currentLevel: levels.Exists(l => l.name == dto.currentLevel) ? dto.currentLevel : defaultLevel.name,
+			currentLevel: levels.Exists(l => l.name == oldDto.currentLevel) ? oldDto.currentLevel : defaultLevel.name,
 			currentController: oldCurrentCtrlValid ? oldDto.currentController : defaultController.controllerName, 
-			settings: confs,
-			persistenceDir: dto.persistenceDir);
+			controllerConfs: confs,
+			persistenceDir: oldDto.persistenceDir);
 	}
 
 	void Start() {

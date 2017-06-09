@@ -1,17 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ProsthesisControllers/MyoController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UI/SettingsMenu.cs">
     <Files>
-      <File FileName="Assets/Scripts/lib/Thalmic/Myo.NET/Myo.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ProsthesisControllers/GMLVQController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Logic/TestRunLogic.cs" Line="9" Column="9" />
-      <File FileName="Assets/Scripts/Logic/Spawner.cs" Line="60" Column="28" />
-      <File FileName="Assets/Scripts/Logic/ProsthesisMover.cs" Line="35" Column="2" />
-      <File FileName="Assets/Scripts/Markers/InvisibleWall.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/lib/Thalmic/ThalmicMyo.cs" Line="104" Column="13" />
-      <File FileName="Assets/Scripts/ProsthesisControllers/MyoController.cs" Line="8" Column="53" />
-      <File FileName="Assets/Scripts/ProsthesisControllers/ThalmicPoseController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ProsthesisControllers/StateMachineController.cs" Line="17" Column="69" />
+      <File FileName="Assets/Scripts/UI/MainMenu.cs" Line="54" Column="5" />
+      <File FileName="Assets/Scripts/UI/ScoreList.cs" Line="39" Column="26" />
+      <File FileName="Assets/Scripts/UI/HighscoreView.cs" Line="49" Column="3" />
+      <File FileName="Assets/Scripts/Dao/GameDataDao.cs" Line="13" Column="35" />
+      <File FileName="Assets/Scripts/UI/SettingsMenu.cs" Line="92" Column="36" />
+      <File FileName="Assets/Scripts/Dao/SettingsDto.cs" Line="20" Column="1" />
+      <File FileName="Assets/Scripts/Logic/Spawner.cs" Line="47" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

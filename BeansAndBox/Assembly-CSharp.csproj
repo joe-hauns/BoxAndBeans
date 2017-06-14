@@ -104,7 +104,6 @@
      <Compile Include="Assets\Scripts\UI\ScoreList\ScoreUi.cs" />
      <Compile Include="Assets\Scripts\UI\TestRunUi.cs" />
      <Compile Include="Assets\Scripts\UI\TextStyles.cs" />
-     <Compile Include="Assets\Scripts\lib\SimpleJson\SimpleJson.cs" />
      <Compile Include="Assets\Scripts\lib\Thalmic\Myo.NET\EventTypes.cs" />
      <Compile Include="Assets\Scripts\lib\Thalmic\Myo.NET\Hub.cs" />
      <Compile Include="Assets\Scripts\lib\Thalmic\Myo.NET\Myo.cs" />

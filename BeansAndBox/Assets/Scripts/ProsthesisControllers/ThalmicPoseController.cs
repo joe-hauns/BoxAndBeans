@@ -12,7 +12,7 @@ public class ThalmicPoseController : MyoController {
 	protected override void _Update () { }
 	protected override void _Awake () { }
 
-	override public float getRotationVelocity() {
+	override public float RotationVelocity() {
 		if (myo.pose == Pose.WaveOut)
 			return 1;
 		else if (myo.pose == Pose.WaveIn) 
@@ -21,7 +21,7 @@ public class ThalmicPoseController : MyoController {
 			return 0;
 	}
 
-	override public float getOpeningVelocity() {
+	override public float OpeningVelocity() {
 		if (myo.pose == Pose.FingersSpread)
 			return 1;
 		else if (myo.pose == Pose.Fist) 

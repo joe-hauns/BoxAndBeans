@@ -44,7 +44,7 @@ public abstract class MyoController : ProsthesisController
 	protected abstract void _Update ();
 	protected abstract void _Awake ();
 
-	override public Vector2 getPosition ()
+	override public Vector2 Position ()
 	{
 		var rotation = myo.transform.localRotation.eulerAngles - calibrationAngles;
 		rotation.x = cropAngleRange (rotation.x);

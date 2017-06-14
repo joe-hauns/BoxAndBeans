@@ -45,7 +45,7 @@ public class ProsthesisMover : MonoBehaviour {
 	private float openingCoefficient { get { return animator.GetCurrentAnimatorStateInfo (0).normalizedTime; }}
 
 	void Open(){
-		float openVelocity = controller.getOpeningVelocity () / minOpeningDuration;
+		float openVelocity = controller.OpeningVelocity () / minOpeningDuration;
 
 		/* stopping animation if finished */
 		float opened = openingCoefficient;
@@ -58,7 +58,7 @@ public class ProsthesisMover : MonoBehaviour {
 	}
 
 	void Move() {	
-		var ctrlPos = toWorldPosition (controller.getPosition ());
+		var ctrlPos = toWorldPosition (controller.Position ());
 		var targetPos = new Vector3 (ctrlPos.x, ctrlPos.y, zOffset);
 		var currentPos = rigid.transform.position;
 
@@ -85,7 +85,7 @@ public class ProsthesisMover : MonoBehaviour {
 	}
 
 	void Rotate() {	/* rotating */
-		float targetAngularVelocity = -controller.getRotationVelocity () * maxRotationVelocity;
+		float targetAngularVelocity = -controller.RotationVelocity () * maxRotationVelocity;
 		currentAngle = (currentAngle + targetAngularVelocity * Time.deltaTime + 360) % 360;
 
 		var euler = rigid.rotation.eulerAngles;
@@ -111,8 +111,8 @@ public class ProsthesisMover : MonoBehaviour {
 			y: position.y,
 			rotation: currentAngle,
 			opened: openingCoefficient,
-			openingVelocity: controller.getOpeningVelocity(),
-			rotationVelocity: controller.getRotationVelocity(),
+			openingVelocity: controller.OpeningVelocity(),
+			rotationVelocity: controller.RotationVelocity(),
 			time: gameTime.time
 		);
 	}

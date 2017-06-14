@@ -33,6 +33,7 @@ public class EmgSliderRow : MonoBehaviour {
 		var texts = new List<Text> (GetComponentsInChildren<Text> ());
 		this.text = texts.Find (txt => txt.name == "Value");
 		this.label = texts.Find (txt => txt.name == "Label");
+		this.slider.value = 1.0f;
 	}
 
 	public void SliderValueChanged() {

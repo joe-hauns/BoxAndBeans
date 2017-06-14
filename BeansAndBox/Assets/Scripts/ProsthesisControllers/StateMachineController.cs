@@ -94,7 +94,7 @@ public class StateMachineController : MyoController {
 		timer.Enabled = false;
 	}
 
-	override public float getRotationVelocity() {
+	override public float RotationVelocity() {
 		if (rotate) {
 			var res = 0;
 			if (electrodeClockWise) 
@@ -107,7 +107,7 @@ public class StateMachineController : MyoController {
 		}
 	}
 
-	override public float getOpeningVelocity() {
+	override public float OpeningVelocity() {
 		if (!rotate) {
 			var res = 0;
 			if (electrodeOpen)

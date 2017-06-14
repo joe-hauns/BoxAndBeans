@@ -6,7 +6,7 @@ using System;
 public class Spawner : MonoBehaviour
 {
 
-	public int spawnPackageSize = 3;
+	public int spawnPackageSize { set; private get; }
 	public GameObject beanPrefab;
 	public SpawningArea spawningArea{ private get; set; }
 

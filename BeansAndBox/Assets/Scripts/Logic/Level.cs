@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Level : MonoBehaviour {
-	public SpawningArea spawningArea{ private set; get; }
 	public int gameDurationInSeconds = 60;
-	public static int ids;
-	public int id;
+	public int spawnPackageSize = 3;
 
+	private SpawningArea spawningArea{ set; get; }
 	private List<InvisibleWall> invisibleWalls;
 	private List<OrdenaryWall> ordenaryWalls;
-	private TargetArea targetArea;
+	private TargetAreas targetAreas;
 	private GameLogic logic;
 	private TestRunLogic testLogic;
 
@@ -26,8 +25,8 @@ public class Level : MonoBehaviour {
 			this.testLogic = FindObjectOfType<TestRunLogic> ();
 			this.logic = FindObjectOfType<GameLogic> ();
 			this.spawner = FindObjectOfType<Spawner> ();
-			this.targetArea = GetComponentInChildren<TargetArea> ();
-			if (targetArea == null)
+			this.targetAreas = GetComponentInChildren<TargetAreas> ();
+			if (targetAreas == null)
 				throw new System.Exception ();
 
 			this.didInit = true;
@@ -37,17 +36,18 @@ public class Level : MonoBehaviour {
 	public void Enable() {
 		Awake ();
 		spawner.spawningArea = this.spawningArea;
+		spawner.spawnPackageSize = this.spawnPackageSize;
 		logic.level = this;
 		testLogic.vanishingTimeInSec = gameDurationInSeconds;
 		invisibleWalls.ForEach (x => x.gameObject.SetActive (true));
 		ordenaryWalls.ForEach (x => x.gameObject.SetActive (true));
-		this.targetArea.gameObject.SetActive (true);
+		this.targetAreas.gameObject.SetActive (true);
 	}
 
 	public void Disable() {
 		Awake ();
 		invisibleWalls.ForEach (x => x.gameObject.SetActive (false));
 		ordenaryWalls.ForEach (x => x.gameObject.SetActive (false));
-		this.targetArea.gameObject.SetActive (false);
+		this.targetAreas.gameObject.SetActive (false);
 	}
 }

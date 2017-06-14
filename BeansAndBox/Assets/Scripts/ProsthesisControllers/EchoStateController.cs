@@ -67,11 +67,11 @@ public class EchoStateController : MyoController {
 
 	}
 
-	override public float getOpeningVelocity() {
+	override public float OpeningVelocity() {
 		return openVelo;
 	}
 
-	override public float getRotationVelocity() {
+	override public float RotationVelocity() {
 		return rotationVelo;
 	}
 }

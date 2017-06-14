@@ -7,9 +7,16 @@ using System.Collections.Generic;
 /// Used only to identify the Target Area game object instead of using a tag.
 /// </summary>
 public class TargetArea : MonoBehaviour {
+	public TargetAreas parent { private get; set; }
+
 	private Dictionary<Bean, HashSet<Collider>> beans;
 
-	void Start() {
+	public bool Contains(Bean b) {
+		print("contains called: "+ beans.ContainsKey (b));
+		return beans.ContainsKey (b);
+	}
+
+	void Start () {
 		this.beans = new Dictionary<Bean,HashSet<Collider>> ();
 	}
 
@@ -28,7 +35,7 @@ public class TargetArea : MonoBehaviour {
 			beans [bean].Remove (c);
 			if (beans [bean].Count == 0) {
 				beans.Remove (bean);
-				bean.wasCollected = false;
+				parent.BeanExited (bean);
 			}
 		}
 	}

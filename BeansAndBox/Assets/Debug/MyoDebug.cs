@@ -19,7 +19,7 @@ public class MyoDebug : MonoBehaviour {
 		var xRotation = Quaternion.Euler (angles.x * Vector3.right);
 		var yRotation = Quaternion.Euler (angles.y * Vector3.up);
 		var zRotation = Quaternion.Euler (angles.z * Vector3.forward);
-		var pos = controller.getPosition ();
+		var pos = controller.Position ();
 
 		{
 			var scale = 1f;

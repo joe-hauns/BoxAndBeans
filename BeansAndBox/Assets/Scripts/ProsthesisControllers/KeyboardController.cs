@@ -29,7 +29,7 @@ public class KeyboardController :  ProsthesisController {
 
 	}
 
-	override public float getOpeningVelocity() {
+	override public float OpeningVelocity() {
 		if (Input.GetKey(KeyCode.W))
 			return 1;
 		else if (Input.GetKey(KeyCode.S)) 
@@ -38,15 +38,15 @@ public class KeyboardController :  ProsthesisController {
 			return 0;
 	}
 
-	override public Vector2 getPosition() {
+	override public Vector2 Position() {
 		return curPos;
 	}
 
-	override public float getRotationVelocity() {
+	override public float RotationVelocity() {
 		if (Input.GetKey(KeyCode.D))
-			return -1;
-		else if (Input.GetKey(KeyCode.A)) 
 			return 1;
+		else if (Input.GetKey(KeyCode.A)) 
+			return -1;
 		else
 			return 0;
 	}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 using Arm = Thalmic.Myo.Arm;
 using XDirection = Thalmic.Myo.XDirection;
@@ -39,11 +40,11 @@ public class ThalmicMyo : MonoBehaviour {
     // following Unity coordinate system conventions.
     public Vector3 gyroscope;
 
-    public Thalmic.Myo.Result streamEmg;
+    //public Thalmic.Myo.Result streamEmg;
     
-//	BUG: When not initialized
-//	public int[] emg;
-	public int[] emg = new int[8];
+	public int[] emg { get; private set; }
+
+	public event EventHandler<Thalmic.Myo.EmgDataEventArgs> EmgEvent; 
 
     // True if and only if this Myo armband has paired successfully, at which point it will provide data and a
     // connection with it will be maintained when possible.
@@ -71,10 +72,16 @@ public class ThalmicMyo : MonoBehaviour {
         _myo.NotifyUserAction ();
     }
 
-    void Start() {
-        if (isPaired) {
-            streamEmg = _myo.SetStreamEmg (_myoStreamEmg);
-        }
+    void Awake() {
+		if (emg == null) {
+			emg = new int[8];
+		}
+		if (this.EmgEvent == null) {
+			EmgEvent += (x, y) => { };
+		}
+        /*if (isPaired) {
+            streamEmg = _myo.SetStreamEmg (StreamEmg.Enabled);
+        }*/
     }
 
     void Update() {
@@ -91,9 +98,9 @@ public class ThalmicMyo : MonoBehaviour {
             if (_myoGyroscope != null) {
                 gyroscope = new Vector3(_myoGyroscope.Y, _myoGyroscope.Z, -_myoGyroscope.X);
             }
-            if (isPaired && streamEmg == Thalmic.Myo.Result.Success) {
+            /*if (isPaired && streamEmg == Thalmic.Myo.Result.Success) {
                 emg = _myo.emgData;
-            }
+            }*/
 
             pose = _myoPose;
             unlocked = _myoUnlocked;
@@ -136,7 +143,10 @@ public class ThalmicMyo : MonoBehaviour {
 
     void myo_OnEmgData(object sender, Thalmic.Myo.EmgDataEventArgs e) {
         lock (_lock) {
-            _myoEmg = e.Emg;
+			emg = e.Emg; // This function is never called
+			//if (EmgEvent != null) {
+				EmgEvent (this, e);
+			//}
         }
     }
 
@@ -170,6 +180,7 @@ public class ThalmicMyo : MonoBehaviour {
                 _myo.PoseChange -= myo_OnPoseChange;
                 _myo.Unlocked -= myo_OnUnlock;
                 _myo.Locked -= myo_OnLock;
+				_myo.EmgData -= myo_OnEmgData;
             }
             _myo = value;
             if (value != null) {
@@ -181,11 +192,13 @@ public class ThalmicMyo : MonoBehaviour {
                 value.PoseChange += myo_OnPoseChange;
                 value.Unlocked += myo_OnUnlock;
                 value.Locked += myo_OnLock;
+             	value.SetStreamEmg (StreamEmg.Enabled);
+				value.EmgData += myo_OnEmgData;
             }
         }
     }
 
-    private Object _lock = new Object();
+    private System.Object _lock = new System.Object();
 
     private bool _myoArmSynced = false;
     private Arm _myoArm = Arm.Unknown;
@@ -193,12 +206,8 @@ public class ThalmicMyo : MonoBehaviour {
     private Thalmic.Myo.Quaternion _myoQuaternion = null;
     private Thalmic.Myo.Vector3 _myoAccelerometer = null;
     private Thalmic.Myo.Vector3 _myoGyroscope = null;
-//  FIX 4: Index out of bounds because not initialized.
-//	public int[] _myoEmg;
-    public int[] _myoEmg = new int[8];
     private Pose _myoPose = Pose.Unknown;
     private bool _myoUnlocked = false;
-    private StreamEmg _myoStreamEmg = StreamEmg.Enabled;
 
     private Thalmic.Myo.Myo _myo;
 

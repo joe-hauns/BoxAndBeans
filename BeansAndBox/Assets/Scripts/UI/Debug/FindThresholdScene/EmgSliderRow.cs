@@ -10,9 +10,7 @@ public class EmgSliderRow : MonoBehaviour {
 	private Text label;
 
 	public string caption {
-		set {
-			label.text = value;
-		}
+		set { label.text = value; }
 	}
 
 	private double threshold {

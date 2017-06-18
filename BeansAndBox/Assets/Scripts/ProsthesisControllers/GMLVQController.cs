@@ -42,8 +42,24 @@ public class GMLVQController : MyoController {
 		this.enabled = false;
 	}
 
+
+	#if EVENT_BASED_EMG
+
+	void OnEnable() {
+		myo.EmgEvent += emg_changed;
+	}	
+	void OnDisable() {
+		myo.EmgEvent -= emg_changed;
+	}	
+
+	protected override void _Update() { }
+
+	void emg_changed (object sender, Thalmic.Myo.EmgDataEventArgs e) {
+		if (buffer.store (e.Emg)) {
+	#else
 	protected override void _Update() {
 		if (myo.isPaired && buffer.store (myo.emg)) {
+	#endif
 			var features = Features.extractFeatures (filter.filter (buffer.retrieve ()));
 			var output = model.GetOutput (DenseMatrix.multiply (trafoMatrix, features));
 			openVelo = (float) output [0];

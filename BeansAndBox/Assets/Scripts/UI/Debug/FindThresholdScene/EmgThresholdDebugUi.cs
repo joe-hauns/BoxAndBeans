@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
+using System;
+using System.Reflection;
 
 public class EmgThresholdDebugUi : MonoBehaviour {
 	private EmgSliderRow[] sliders;
@@ -33,9 +35,9 @@ public class EmgThresholdDebugUi : MonoBehaviour {
 		timer.Enabled = true;
 	}
 
-	void Update() {
+	void Update() { 
 		for (int i = 0; i < filters.Length; i++) {
-			sliders[i].value = (float)filters[i].get();
+			sliders [i].value = (float)filters [i].get ();
 		}
 	}
 }

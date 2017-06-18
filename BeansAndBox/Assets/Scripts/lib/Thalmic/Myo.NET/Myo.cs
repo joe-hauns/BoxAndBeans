@@ -39,7 +39,7 @@ namespace Thalmic.Myo
 
         public event EventHandler<RssiEventArgs> Rssi;
         
-        //public event EventHandler<EmgDataEventArgs> EmgData; // NEVER USED
+        public event EventHandler<EmgDataEventArgs> EmgData; 
 
         public event EventHandler<MyoEventArgs> Unlocked;
 
@@ -47,7 +47,7 @@ namespace Thalmic.Myo
         
 // FIX 2: Myo has 8 emg sensors => Index out of bounds. 
 //      public int[] emgData = new int[7]; 
-        public int[] emgData = new int[8]; 
+        //public int[] emgData = new int[8]; 
 
         internal Hub Hub
         {
@@ -93,8 +93,6 @@ namespace Thalmic.Myo
 
         internal void HandleEvent(libmyo.EventType type, DateTime timestamp, IntPtr evt)
         {
-// FIX 1 => field not needed
-//			bool outputEmgData = false;
             switch (type)
             {
                 case libmyo.EventType.Connected:
@@ -175,9 +173,7 @@ namespace Thalmic.Myo
                     }
                     break;
                 case libmyo.EventType.Emg:
-// FIX 1 => field not needed
-//					outputEmgData = true;
-                    SetEmgData(evt, timestamp);
+					EmgEvent(evt, timestamp);
                     break;
                 case libmyo.EventType.Unlocked:
                     if (Unlocked != null)
@@ -193,13 +189,9 @@ namespace Thalmic.Myo
                     break;
             }
 				
-// FIX 1: Crash due to the fact that evt might not be an emg event. 
-//    		if (!outputEmgData && streamEmg) {
-//    			SetEmgData(evt, timestamp);
-//    		}
         }
-		
-		protected void SetEmgData(IntPtr evt, DateTime timestamp)
+
+		void EmgEvent (IntPtr evt, DateTime timestamp)
 		{
 			int[] emg = {
 				libmyo.event_get_emg(evt, 0),
@@ -211,9 +203,9 @@ namespace Thalmic.Myo
 				libmyo.event_get_emg(evt, 6),
 				libmyo.event_get_emg(evt, 7)
 			};
-
-			emgData = emg;
+			EmgData(this, new EmgDataEventArgs(this, timestamp, emg));
 		}
+		
     }
     
     public enum Result

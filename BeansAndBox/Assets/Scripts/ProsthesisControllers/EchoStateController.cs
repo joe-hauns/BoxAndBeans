@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#define EVENT_BASED_EMG
+using UnityEngine;
 using System.Collections;
 using EchoState;
 using System.IO;
@@ -47,8 +48,23 @@ public class EchoStateController : MyoController {
 		#endif
 	}
 
+	#if EVENT_BASED_EMG
+
+	void OnEnable() {
+		myo.EmgEvent += emg_changed;
+	}	
+	void OnDisable() {
+		myo.EmgEvent -= emg_changed;
+	}	
+
+	protected override void _Update() { }
+
+	void emg_changed (object sender, Thalmic.Myo.EmgDataEventArgs e) {
+		if (buffer.store (e.Emg)) {
+	#else
 	protected override void _Update() {
 		if (myo.isPaired && buffer.store (myo.emg)) {
+	#endif
 			esn.Update (Features.extractFeatures(filter.filter (buffer.retrieve ())));
 			var output = esn.GetNormalizedOutput ();
 			openVelo = (float) output [0];
@@ -64,7 +80,6 @@ public class EchoStateController : MyoController {
 			}
 			#endif
 		}
-
 	}
 
 	override public float OpeningVelocity() {

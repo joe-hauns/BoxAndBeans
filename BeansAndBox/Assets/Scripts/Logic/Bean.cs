@@ -9,13 +9,13 @@ public class Bean : MonoBehaviour
 	/// The drag value for the physics engine, the bean should have when it was grabbed oncs by the player 
 	/// and therefore gravity is enabled for the bean.
 	/// </summary>
-	public float dragAfterFirstGrab = 0f;
 	///<summary> The part of the bean that can be grabbed by the player. </summary>
 	public Collider grabable;
 	/// <summary> The collider of the left non-grabable part of the bean. </summary>
 	public SphereCollider leftSphere;
 	/// <summary> The collider of the right non-grabable part of the bean. </summary>
 	public SphereCollider rightSphere;
+
 	/// <summary> 
 	/// An array of all possible colors, a bean may have. The bean will choose one of the colors randomly
 	/// when it is spawned. 
@@ -25,7 +25,8 @@ public class Bean : MonoBehaviour
 		Color.magenta,
 		Color.yellow
 	};
-	public List<BeanStateDto> states;
+
+	public List<BeanStateDto> states{ get; private set; }
 
 	/// <summary> The maximum length between any two points on the colliders of this bean. </summary>
 	public float MaxDiameter { 
@@ -48,7 +49,6 @@ public class Bean : MonoBehaviour
 				rigid.constraints = rigid.constraints & ~(RigidbodyConstraints.FreezeRotationY);
 				gameObject.layer = 0;
 				rigid.useGravity = true;
-				rigid.drag = dragAfterFirstGrab;
 
 				this.timeCollected = gameTime.time;
 			} else {
@@ -67,12 +67,11 @@ public class Bean : MonoBehaviour
 			if (value) {
 				if (grabCount++ == 0) {
 					/* stays the same after first grab */
-					rigid.constraints = rigid.constraints & ~(RigidbodyConstraints.FreezeRotationY);
 					gameObject.layer = 0;
 				}
+				rigid.constraints = rigid.constraints & ~(RigidbodyConstraints.FreezeRotationY);
 			} else {
-				/* stays the same after first release */
-				rigid.drag = dragAfterFirstGrab;
+				rigid.constraints = rigid.constraints | (RigidbodyConstraints.FreezeRotationY);
 			}
 			/* on every grab */
 			grabable.isTrigger = value;

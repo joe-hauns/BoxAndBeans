@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#define EVENT_BASED_EMG
+using UnityEngine;
 using System.Collections;
 using EchoState;
 using System.IO;

@@ -3,3 +3,6 @@
 BeansAndBox/Temp/
 myo_train_data_jo/
 BeansAndBox/obj/
+**/.*.swp
+**/*.m~
+**/.DS_Store

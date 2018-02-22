@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//#define DEBUG_MYO
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +8,7 @@ public class MyoDebugUi : MonoBehaviour {
 	public bool filtered = false;
 	public int filterSize = 10;
 
-	#if UNITY_EDITOR
+	#if UNITY_EDITOR && DEBUG_MYO
 	private ThalmicMyo myo;
 	private EsnDebugUiValue[] emgValues;
 	private Filter[] filters;

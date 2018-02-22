@@ -1,4 +1,5 @@
-﻿#define EVENT_BASED_EMG
+﻿//#define DEBUG_ESN
+#define EVENT_BASED_EMG
 using UnityEngine;
 using System.Collections;
 using EchoState;
@@ -30,7 +31,7 @@ public class EchoStateController : MyoController {
 	private EchoStateNetwork esn;
 
 
-	#if UNITY_EDITOR
+	#if UNITY_EDITOR && DEBUG_ESN
 	private EchoStateDebugUI debug;
 	#endif
 
@@ -40,7 +41,7 @@ public class EchoStateController : MyoController {
 	protected override void _Awake() {
 		var dbg = GetComponentInChildren<EchoStateDebugUI>();
 		this.enabled = false;
-		#if UNITY_EDITOR
+		#if UNITY_EDITOR && DEBUG_ESN
 		dbg.gameObject.SetActive(true);
 		this.debug = dbg;
 		#else
@@ -69,7 +70,7 @@ public class EchoStateController : MyoController {
 			var output = esn.GetNormalizedOutput ();
 			openVelo = (float) output [0];
 			rotationVelo = (float) output [1];
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR && DEBUG_ESN
 			{
 				var norm = esn.GetNormalizedOutput();
 				this.debug.normalized.x.value = norm[0];

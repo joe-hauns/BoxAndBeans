@@ -26,7 +26,7 @@ public class MenuPanel : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		if (Event.current.type == EventType.keyUp){
+		if (Event.current.type == EventType.KeyUp){
 			this.current.KeyPressed (Event.current.keyCode);
 		}
 	}

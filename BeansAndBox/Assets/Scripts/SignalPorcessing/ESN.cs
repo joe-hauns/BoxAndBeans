@@ -153,6 +153,43 @@ namespace EchoState {
 			return network;
 		}
 
+		// Reads an EchoStateNetwork from JSON files, one for the reservoir (meta parameters, input weights and internal weights)
+		// one for the transfer matrix, and one for the output weights.
+		public static EchoStateNetwork FromJSON(string reservoir_file, string transfer_file, string W_out_file) {
+			string reservoir_data = FileRead.readFileData(reservoir_file);
+			string transfer_data = FileRead.readFileData(transfer_file);
+			string out_data = FileRead.readFileData(W_out_file);
+			return FromJSON(
+				(JSONClass) ((JSONClass) JSONNode.Parse(reservoir_data))["esn"],
+				(JSONClass) JSONNode.Parse(transfer_data),
+				(JSONClass) ((JSONClass) JSONNode.Parse(out_data))["esn"]
+			);
+		}
+
+		// converts the JSON representation of a reservoir and an output weight matrix
+		// to an EchoStateNetwork
+		public static EchoStateNetwork FromJSON(JSONClass jReservoir, JSONClass jT, JSONClass jOut) {
+			// read input weights
+			double[,] W_in    = DenseMatrix.FromJSON((JSONArray) jReservoir["wInp"]);
+			// read the transfer matrix
+			double[,] T       = DenseMatrix.FromJSON((JSONArray) jT["transfMap"]);
+			// multiply W_in with T
+			W_in              = DenseMatrix.multiply(W_in, T);
+			// read reservoir matrix
+			WeightMatrix W    = new WeightMatrix((JSONClass) jReservoir["wRes"]);
+			// read output weights
+			double[,] W_out   = DenseMatrix.FromJSON((JSONArray) jOut["wOut"]);
+			// create network object
+			EchoStateNetwork network = new EchoStateNetwork(W_in, W, W_out);
+			// read meta parameters
+			network.dt        = jReservoir["dt"].AsDouble;
+			network.inpOffset = DenseMatrix.VectorFromJSON((JSONArray) jReservoir["inpOffset"]);
+			network.inpRange  = DenseMatrix.FromJSON((JSONArray) jReservoir["inpRange"]);
+			network.outOffset = DenseMatrix.VectorFromJSON((JSONArray) jOut["outOffset"]);
+			network.outRange  = DenseMatrix.FromJSON((JSONArray) jOut["outRange"]);
+			return network;
+		}
+
 		// returns the number of inputs for this ESN
 		public int NumInputs() {
 			return this.W_in.GetLength(1);
@@ -216,15 +253,15 @@ namespace EchoState {
 
 		// Computes the output of the ESN but clips and normalizes it such that
 		// it is guaranteed to be in the range [-1, 1] in each dimension and
-		// values below 0.5 are ignored
+		// values below 0.2 are ignored
 		public double[] GetNormalizedOutput() {
 			double[] y = GetOutput();
 			for(int i = 0; i < y.Length; i++) {
 				var x = Math.Min(Math.Max(y [i], -1), 1);
-				if (x < - 0.5) {
-					y[i] = 2 * (y[i] + 0.5);
-				} else if (x > 0.5) {
-					y[i] = 2 * (y[i] - 0.5);
+				if (x < - 0.2) {
+					y[i] = 2 * (y[i] + 0.2);
+				} else if (x > 0.2) {
+					y[i] = 2 * (y[i] - 0.2);
 				} else {
 					y [i] = 0;
 				}

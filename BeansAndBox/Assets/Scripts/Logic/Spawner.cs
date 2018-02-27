@@ -20,18 +20,25 @@ public class Spawner : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (spawnedBeans.TrueForAll (b => b.wasCollected))
+		var numNonCollected = 0;
+		foreach (var b in spawnedBeans) {
+			if(!b.wasCollected) {
+				numNonCollected++;
+			}
+		}
+		if(numNonCollected <= 1 ) {
 			SpawnBeans ();
+		}
 	}
 
 	/// <summary>
 	/// Spawns new beans at random positions within the spawning area. The rotation
-	/// of the bean will be randomized. The number of beans spawned can be set with the 
+	/// of the bean will be randomized. The number of beans spawned can be set with the
 	/// field <see cref="spawnPackageSize"/>.
 	/// </summary>
 	private void SpawnBeans ()
 	{
-		
+
 		lock (this) {
 			var spawnCenterDist = beanPrefab.GetComponent<Bean> ().MaxDiameter;
 

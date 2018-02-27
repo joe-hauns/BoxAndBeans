@@ -1,6 +1,6 @@
 /*
 * EchoStateNetwork - Copyright 2016 Benjamin Paaßen
-* 
+*
 * Theoretical Computer Science for Cognitive Systems
 * Cognitive Interaction Technology (CITEC)
 * Bielefeld University
@@ -26,6 +26,22 @@ namespace EchoState {
 				}
 			}
 			return y;
+		}
+
+		// multiplies the given first dense matrix (from the left side) with the given right dense
+		// matrix
+		public static double[,] multiply(double[,] T, double[,] W) {
+			if(T.GetLength(1) != W.GetLength(0)) throw new ArgumentException("The given first matrix has "
+				+ T.GetLength(1) + " columns but the given second input matrix has " + W.GetLength(0) + " rows!");
+			double[,] W2 = new double[T.GetLength(0), W.GetLength(1)];
+			for(int i = 0; i < T.GetLength(0); i++) {
+				for(int k = 0; k < T.GetLength(1); k++) {
+					for(int j = 0; j < W.GetLength(1); j++) {
+						W2[i, j] += T[i, k] * W[k, j];
+					}
+				}
+			}
+			return W2;
 		}
 
 		// reads a dense matrix (2-dimensional double array) from a JSON array

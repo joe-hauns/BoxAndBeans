@@ -17,7 +17,7 @@ public class StateMachineController : MyoController {
 	public override string controllerName { get { return "State Machine"; } }
 	public override string defaultConfigFile { get{ return Path.Combine(Application.persistentDataPath, "simple_state_machine_config.json"); } }
 	public override bool needsConfiguration { get{ return true; } }
-	public override ConfigResult SetConfiguration (string configPath) { 
+	public override ConfigResult SetConfiguration (string configPath) {
 		try {
 			var config = JsonUtility.FromJson<SimpleStateMachineControllerDto> (File.ReadAllText (configPath));
 			if (config.electrode1 < 0 || 7 < config.electrode1)
@@ -29,7 +29,7 @@ public class StateMachineController : MyoController {
 			if (config.threshold2 < 0 || 1 < config.threshold2)
 				return ConfigResult.error("Thresholds must be within [0; 1]. Found: threshold2 = "+config.threshold2);
 			this.config = config;
-			return ConfigResult.OK; 
+			return ConfigResult.OK;
 		} catch (System.Exception e) {
 			return ConfigResult.error (e.Message);
 		}
@@ -47,17 +47,19 @@ public class StateMachineController : MyoController {
 	private bool electrodeCounterClockWise { get { return config.electrode1_rotate_clockwise ? electrode2 : electrode1; } }
 	private float lastElectrode1 = -1;
 	private float lastElectrode2 = -2;
+	private float lastCocontract = -1;
 	private bool cocontracting = false;
 
-	protected override void _Update () { 
+	protected override void _Update () {
 
-		if (electrode1) 
+		if (electrode1)
 			lastElectrode1 = gameTime.time;
 		if (electrode2)
 			lastElectrode2 = gameTime.time;
 
 		var diff = Mathf.Abs (lastElectrode1 - lastElectrode2);
-		if ( diff < 0.08) {
+		var diff_to_last_cocontract = gameTime.time - lastCocontract;
+		if ( diff < 0.08 && diff_to_last_cocontract > 1 ) {
 			if (!cocontracting) {
 				this.rotate = !this.rotate;
 				if (vibrateOnStateChange) {
@@ -66,12 +68,13 @@ public class StateMachineController : MyoController {
 				}
 			}
 			cocontracting = true;
+			lastCocontract = gameTime.time;
 		} else {
 			cocontracting = false;
 		}
 	}
 
-	protected override void _Awake () { 
+	protected override void _Awake () {
 		this.gameTime = FindObjectOfType<GameTime>();
 		var windowSize = (int)Mathf.Ceil(filterWindowLengthInMilliseconds / (float)sampleTimeDifferenceInMilliseconds);
 		this.filter1 = new Filter (windowSize);
@@ -97,7 +100,7 @@ public class StateMachineController : MyoController {
 	override public float RotationVelocity() {
 		if (rotate) {
 			var res = 0;
-			if (electrodeClockWise) 
+			if (electrodeClockWise)
 				res += 1;
 			if (electrodeCounterClockWise)
 				res -= 1;
@@ -112,12 +115,11 @@ public class StateMachineController : MyoController {
 			var res = 0;
 			if (electrodeOpen)
 				res += 1;
-			if (electrodeClose) 
+			if (electrodeClose)
 				res -= 1;
 			return res;
 		} else {
 			return 0;
-		}	
+		}
 	}
 }
- 

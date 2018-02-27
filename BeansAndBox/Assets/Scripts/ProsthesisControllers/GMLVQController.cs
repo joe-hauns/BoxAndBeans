@@ -9,21 +9,32 @@ using SimpleJSON;
 public class GMLVQController : MyoController {
 
 	public override string controllerName { get { return "GMLVQ Model"; } }
-	public override string defaultConfigFile { get{ return Path.Combine(Application.persistentDataPath, "QMLVQ"); } }
+	public override string defaultConfigFile { get{ return Path.Combine(Application.persistentDataPath, "gmlvq"); } }
 	public override bool needsConfiguration { get{ return true; } }
-	public override ConfigResult SetConfiguration (string configPath) { 
-		var modelPath = Path.Combine (configPath, "qmlvq.json");
-		var transformPath = Path.Combine (configPath, "transform.json");
+	public override ConfigResult SetConfiguration (string configPath) {
+		var modelPath = Path.Combine (configPath, "gmlvq_model.json");
+		var transformPath = Path.Combine (configPath, "transfer_mapping.json");
 
-		if (!File.Exists (modelPath) || !File.Exists (transformPath)) {
-			return ConfigResult.error("Resource file missing: " + (!File.Exists(modelPath) ? modelPath : transformPath));
+		// Try to read the transform matrix
+		if(File.Exists(transformPath)) {
+			Debug.LogWarning("start loading GMLVQ with transfer mapping");
+			var raw_data_string = FileRead.readFileData(transformPath);
+			this.trafoMatrix = DenseMatrix.FromJSON((JSONArray) ((JSONClass) JSONNode.Parse(raw_data_string))["transfMap"]);
+		} else {
+			Debug.LogWarning("start loading GMLVQ without transfer mapping");
+			// if the file for the transform matrix does not exist, we use an identity matrix
+			this.trafoMatrix = null;
+		}
+
+		if (!File.Exists (modelPath)) {
+			return ConfigResult.error("Resource file missing: " + modelPath);
 		} else {
 			try {
-				var raw_data_string = FileRead.readFileData(transformPath);
-				this.trafoMatrix = DenseMatrix.FromJSON((JSONArray) ((JSONClass) JSONNode.Parse(raw_data_string))["transform"]);
-
-				this.model = GMLVQModel.FromJSON (configPath);
-
+				// parse multiple GMLVQ models, one per class.
+				this.models = GMLVQModel.MultiFromJSON (modelPath);
+				if(this.models.Length != 2) {
+					return ConfigResult.error("Expected two GMLVQ models!");
+				}
 				return ConfigResult.OK;
 			} catch (System.Exception e) {
 				return ConfigResult.error(e.Message);
@@ -33,7 +44,7 @@ public class GMLVQController : MyoController {
 
 	private Buffer buffer = new Buffer();
 	private CombFilter filter = new CombFilter(200, 50);
-	private GMLVQModel model;
+	private GMLVQModel[] models;
 	private double[,] trafoMatrix;
 
 	private float openVelo = 0;
@@ -48,12 +59,14 @@ public class GMLVQController : MyoController {
 
 	void OnEnable() {
 		myo.EmgEvent += emg_changed;
-	}	
+	}
 	void OnDisable() {
 		myo.EmgEvent -= emg_changed;
-	}	
+	}
 
 	protected override void _Update() { }
+
+	public const float dt = 0.45f;
 
 	void emg_changed (object sender, Thalmic.Myo.EmgDataEventArgs e) {
 		if (buffer.store (e.Emg)) {
@@ -62,9 +75,25 @@ public class GMLVQController : MyoController {
 		if (myo.isPaired && buffer.store (myo.emg)) {
 	#endif
 			var features = Features.extractFeatures (filter.filter (buffer.retrieve ()));
-			var output = model.GetOutput (DenseMatrix.multiply (trafoMatrix, features));
-			openVelo = (float) output [0];
-			rotationVelo = (float) output [1];
+			if(trafoMatrix != null) {
+				features = DenseMatrix.multiply(trafoMatrix, features);
+			}
+
+			int openLabel;
+			double openConfidence;
+			models[0].Confidence(features, out openLabel, out openConfidence);
+
+			int rotationLabel;
+			double rotationConfidence;
+			models[1].Confidence(features, out rotationLabel, out rotationConfidence);
+
+			openVelo     = dt * ((float) openLabel) * 0.8f + (1 - dt) * openVelo;
+			if(openLabel != 0) {
+				if(rotationConfidence < 0.5) {
+					rotationLabel = 0;
+				}
+			}
+			rotationVelo = dt * ((float) rotationLabel) * 0.8f + (1 - dt) * rotationVelo;
 		}
 	}
 

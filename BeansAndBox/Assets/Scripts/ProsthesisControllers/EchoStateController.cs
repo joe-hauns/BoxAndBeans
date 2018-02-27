@@ -10,18 +10,30 @@ public class EchoStateController : MyoController {
 	public override string controllerName { get { return "Echo State Network"; } }
 	public override string defaultConfigFile { get{ return Path.Combine(Application.persistentDataPath, "EchoStateNetwork"); } }
 	public override bool needsConfiguration { get{ return true; } }
-	public override ConfigResult SetConfiguration (string configPath) { 
-		var resDir = Path.Combine (configPath, "current_reservoir.json");
-		var outDir = Path.Combine (configPath, "current_output_weights.json");
+	public override ConfigResult SetConfiguration (string configPath) {
+		var resFile   = Path.Combine (configPath, "current_reservoir.json");
+		var transFile = Path.Combine (configPath, "transfer_mapping.json");
+		var outFile   = Path.Combine (configPath, "current_output_weights.json");
 
-		if (!File.Exists (resDir) || !File.Exists (outDir)) {
-			return ConfigResult.error("Resource file missing: " + (!File.Exists (outDir) ? outDir : resDir));
+		if (!File.Exists (resFile) || !File.Exists (outFile)) {
+			return ConfigResult.error("Resource file missing: " + (!File.Exists (outFile) ? outFile : resFile));
 		} else {
-			try {
-				this.esn = EchoStateNetwork.FromJSON (resDir, outDir);
-				return ConfigResult.OK;
-			} catch (System.Exception e) {
-				return ConfigResult.error(e.Message);
+			if(!File.Exists(transFile)) {
+				Debug.LogWarning("start loading ESN without transfer mapping");
+				try {
+					this.esn = EchoStateNetwork.FromJSON (resFile, outFile);
+					return ConfigResult.OK;
+				} catch (System.Exception e) {
+					return ConfigResult.error(e.Message);
+				}
+			} else {
+				Debug.LogWarning("start loading ESN with transfer mapping");
+				try {
+					this.esn = EchoStateNetwork.FromJSON (resFile, transFile, outFile);
+					return ConfigResult.OK;
+				} catch (System.Exception e) {
+					return ConfigResult.error(e.Message);
+				}
 			}
 		}
 	}
@@ -53,10 +65,10 @@ public class EchoStateController : MyoController {
 
 	void OnEnable() {
 		myo.EmgEvent += emg_changed;
-	}	
+	}
 	void OnDisable() {
 		myo.EmgEvent -= emg_changed;
-	}	
+	}
 
 	protected override void _Update() { }
 

@@ -1,6 +1,6 @@
 /*
 * C# GMLVQ - Copyright 2016 Benjamin Paaßen
-* 
+*
 * Theoretical Computer Science for Cognitive Systems
 * Cognitive Interaction Technology (CITEC)
 * Bielefeld University
@@ -82,6 +82,21 @@ namespace GMLVQ {
 			return Prototype_Labels[min_k];
 		}
 
+		public void Confidence(double[] x, out int label, out double confidence) {
+			double[] d = DistanceToPrototypes(x);
+			int min_k  = 0;
+			double d_minus = double.PositiveInfinity;
+			for(int k = 1; k < K; k++) {
+				if(d[k] < d[min_k]) {
+					min_k = k;
+				} else if(d[k] < d_minus) {
+					d_minus = d[k];
+				}
+			}
+			confidence = (d_minus - d[min_k]) / (d_minus + d[min_k]);
+			label = Prototype_Labels[min_k];
+		}
+
 		// Generates an output vector for the given input data point. The output vector has
 		// as many entries as there are degrees of freedom (in this case we assume that num_dofs = 2)
 		// and the entries are either {-1, 0, 1}.
@@ -120,6 +135,26 @@ namespace GMLVQ {
 			return FromJSON(
 				(JSONClass) ((JSONClass) JSONNode.Parse(data))["gmlvq"]
 			);
+		}
+
+
+		// Reads multiple GMLVQModels from a JSON file.
+		public static GMLVQModel[] MultiFromJSON(string file) {
+			string data = FileRead.readFileData(file);
+			return MultiFromJSON(
+				(JSONArray) ((JSONClass) JSONNode.Parse(data))["gmlvq"]
+			);
+		}
+
+		// converts the JSON representation of a GMLVQ Model to a GMLVQModel
+		public static GMLVQModel[] MultiFromJSON(JSONArray jGMLVQ) {
+
+			int numModels = jGMLVQ.Count;
+			GMLVQModel[] models = new GMLVQModel[numModels];
+			for(int m = 0; m < numModels; m++) {
+				models[m] = FromJSON((JSONClass) jGMLVQ[m][0]);
+			}
+			return models;
 		}
 
 		// converts the JSON representation of a GMLVQ Model to a GMLVQModel

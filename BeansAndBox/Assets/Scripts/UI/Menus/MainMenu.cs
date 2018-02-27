@@ -28,7 +28,7 @@ public class MainMenu : AbstractMenu
 		this.playerName = GetComponentInChildren<InputField> ();
 		this.dao = FindObjectOfType<GameDataDao> ();
 		this.tryout = FindObjectOfType<TestRunLogic> ();
-	
+
 		var buttons = new List<Button> (GetComponentsInChildren<Button> ());
 		this.startButton = buttons.Find (b => b.name == "StartButton");
 		this.tryButton = buttons.Find (b => b.name == "TryButton");
@@ -49,7 +49,7 @@ public class MainMenu : AbstractMenu
 		if (name != "") {
 			menu.Hide ();
 			logic.Launch (
-				player: name, 
+				player: name,
 				onTermination: gameState => {
 					dao.Save(gameState);
 					menu.Show(highScores);
@@ -60,7 +60,7 @@ public class MainMenu : AbstractMenu
 		}
 	}
 
-	void TryGame () 
+	void TryGame ()
 	{
 		menu.Hide ();
 		tryout.Launch (
@@ -74,7 +74,7 @@ public class MainMenu : AbstractMenu
 	{
 		//Event.current.keyCode
 		switch (keyCode) {
-		//case KeyCode.KeypadEnter: 
+		//case KeyCode.KeypadEnter:
 		//case KeyCode.Return:
 			//LaunchGame ();
 			//break;
@@ -90,7 +90,7 @@ public class MainMenu : AbstractMenu
 		#if UNITY_EDITOR
 		Debug.LogWarning("Quitting is not possible in editor mode.");
 		#else
-		Application.Quit();
+		System.Diagnostics.Process.GetCurrentProcess().Kill();
 		#endif
 	}
 
